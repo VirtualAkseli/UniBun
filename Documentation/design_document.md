@@ -23,7 +23,7 @@ Huffman's time complexity varies, but Arithmetic should bring O(n logn) results.
 
 ## Implementation
 ### Input
-I will make it so, that the program compresses files, regardless of their type. The algorithms can "transform" strings into shorter strings by determining the most used characters, or words etc, and setting new, shorter forms for them. __This explanation will be enhanced once I get a better understanding of the algorithms.__ 
+I will make it so, that the program compresses files, regardless of their type. 
 ### Output 
 .bun -files that can be later decompressed back to their original form.
 Efficiency regarding the compression rate and speed will be written to the console for inspection.
