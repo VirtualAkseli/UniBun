@@ -9,6 +9,8 @@ The plan is to use Huffman coding and Arithmetic coding. Both of these are essen
 lossless compression, but Arithemtic coding should bring better results faster since it makes better use
 of today's heightened processing capabilities.
 
+Huffman's time comlexity varies, but Arithmetic should bring O(n logn) results.
+
 `` Note: I will update this section as I learn and strengthen my understanding of the subject and the algorithms I am using ``
 
 ## Reference material (I will update this list as I find more information)
