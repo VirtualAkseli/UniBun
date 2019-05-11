@@ -4,10 +4,14 @@
 The objective is to create a program that compresses (bundles) files given to it. 
 Files can also be decompressed (unbundled) back to their original form.
 
+Files need to be converted e.g. binary and then, according to usage, individual characters have to be transformed into shorter versions of the original binary form. __This explanation will be enhanced once I get a better understanding of the algorithms.__ 
+
 ## Algorithms
 The plan is to use Huffman coding and Arithmetic coding. Both of these are essential to 
 lossless compression, but Arithemtic coding should bring better results faster since it makes better use
 of today's heightened processing capabilities.
+
+I will need to implement a heap for the Huffman code, and lists for keeping track of the different weights that the strings individual characters get.
 
 Huffman's time complexity varies, but Arithmetic should bring O(n logn) results.
 
@@ -19,7 +23,7 @@ Huffman's time complexity varies, but Arithmetic should bring O(n logn) results.
 
 ## Implementation
 ### Input
-I will make it so, that the program compresses files, regardless of their type.
+I will make it so, that the program compresses files, regardless of their type. The algorithms can "transform" strings into shorter strings by determining the most used characters, or words etc, and setting new, shorter forms for them. __This explanation will be enhanced once I get a better understanding of the algorithms.__ 
 ### Output 
 .bun -files that can be later decompressed back to their original form.
 Efficiency regarding the compression rate and speed will be written to the console for inspection.
