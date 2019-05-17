@@ -4,7 +4,7 @@
 The objective is to create a program that compresses (bundles) files given to it. 
 Files can also be decompressed (unbundled) back to their original form.
 
-Files need to be converted e.g. binary and then, according to usage, individual characters have to be transformed into shorter versions of the original binary form. __This explanation will be enhanced once I get a better understanding of the algorithms.__ 
+Files need to be converted to binary/String and then, according to the frequency of the symbols, a Huffman tree is set, with the root node including all the other nodes as its children. The nodes are either combinations of symbols or the symbols themselves. Individual symbols are then encoded into shorter binary versions of the original binary form. __This explanation will be enhanced once I get a better understanding of the algorithms.__ 
 
 ## Algorithms
 The plan is to use Huffman coding and Arithmetic coding. Both of these are essential to 
@@ -31,4 +31,4 @@ Efficiency regarding the compression rate and speed will be written to the conso
 The program will be ran from the command line and hence the ui will be a textual one.
 
 ## Ideas for further development
-- GUI with the ability to compare the implemented algortihms and their effectiveness.
+- GUI with the ability to compare the implemented algorithms and their effectiveness.
