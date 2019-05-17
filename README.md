@@ -7,3 +7,4 @@ THe program will be written with Java.
 
 ## Weekly reports
 - [Week report #1](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/viikkoraportti1.md "link to wk1")
+- [Week report #2](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/weekly_report_2.md "link to wk2")
