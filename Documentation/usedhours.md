@@ -25,8 +25,8 @@ Date       | time | what-I-did |
 20.05.2019 | 4h | Fixed the code so that Huffman-coding is done correctly |
 21.05.2019 | 5h | Looking up ways on how to read files into a suitable form of input for the program |
 22.05.2019 | 5h | Trying to solve the input as byte-array design, no success. |
-23.05.2019 | 2h | Tidying the code, writing test |
-
+23.05.2019 | 2h | Tidying the code, writing tests |
+24.05.2019 | 1h | Enabled jacoco and ensured that the tests are reasonable. |
 
 
 
@@ -38,4 +38,4 @@ Date       | time | what-I-did |
  1      | 4,5      |
  2      | 22       |
  3      | 16
- **Sum** | **42,5** |
+ **Sum** | **43,5** |
