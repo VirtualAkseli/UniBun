@@ -18,6 +18,18 @@ Date       | time | what-I-did |
 16.05.2019 | 4h | Managed to make the code extract shortened binary, made the comparison to original... |
 17.05.2019 | 3h | ...found out that the binary output of the algo is incorrect, tried fixing the problem without any progress |
 
+## Week 3
+
+Date       | time | what-I-did |
+-----------|------|--------|
+20.05.2019 | 4h | Fixed the code so that Huffman-coding is done correctly |
+21.05.2019 | 5h | Looking up ways on how to read files into a suitable form of input for the program |
+22.05.2019 | 5h | Trying to solve the input as byte-array design, no success. |
+23.05.2019 | 2h | Tidying the code, writing test |
+
+
+
+
 
 ## Total
 
@@ -25,4 +37,5 @@ Date       | time | what-I-did |
 --------|----------|
  1      | 4,5      |
  2      | 22       |
- **Sum** | **26,5** |
+ 3      | 16
+ **Sum** | **42,5** |
