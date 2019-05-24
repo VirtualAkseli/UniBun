@@ -18,5 +18,5 @@ Would I be able to fill the requirements for this lab?
 ## Upcoming progress
 
 - I need to start implementing the data-structures.
-- + Arithmetic coding
+- ...and Arithmetic coding
 
