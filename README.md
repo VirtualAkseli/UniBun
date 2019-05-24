@@ -6,7 +6,8 @@ The program is written in Java.
 [Design document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/design_document.md "link to dd")
 
 ## Testing
-- [Jacoco-test results](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/index.html "link to testres")
+`` mvn test jacoco:report `` will generate an index.html in /target/site/jacoco that'll prove that the testing has been improved
+
 
 ## Weekly reports
 - [Week report #1](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/viikkoraportti1.md "link to wk1")
