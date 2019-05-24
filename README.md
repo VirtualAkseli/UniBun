@@ -5,6 +5,10 @@ The program is written in Java.
 ## Documentation
 [Design document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/design_document.md "link to dd")
 
+## Testing
+- [Jacoco-test results](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/index.html "link to testres")
+
 ## Weekly reports
 - [Week report #1](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/viikkoraportti1.md "link to wk1")
 - [Week report #2](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/weekly_report_2.md "link to wk2")
+- [Week report #3](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/weekly_report_3.md "link to wk3")
