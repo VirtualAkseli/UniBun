@@ -5,6 +5,7 @@
  */
 package aknu.unibun.domain;
 
+import aknu.unibun.io.UniBunInput;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -23,9 +24,13 @@ public class huffmanTree {
     Leaf root;
     PriorityQueue tempHeap1;
     PriorityQueue tempHeap2;
+    UniBunInput ubi;
+    private String input;
 
     public huffmanTree() throws Exception {
         this.freq1 = new frequencyCalculator();
+        UniBunInput ubi = new UniBunInput();
+        
     }
 
     /**
@@ -38,8 +43,8 @@ public class huffmanTree {
      * @param tempLeaf temporary Leaf for handling the polled node.
      * @param inputHeap
      */
-    public void sortToMaxTree(PriorityQueue inputHeap) {
-
+    public void sortToMaxTree(PriorityQueue inputHeap, String input) {
+        this.input = input;
         tempHeap1 = new PriorityQueue(50, leafComp);
         tempHeap2 = new PriorityQueue(50, leafComp);
 
@@ -79,6 +84,19 @@ public class huffmanTree {
      * This method gathers the Huffman coded binary strings for every symbol of
      * the tree's nodes.
      *
+     */
+    
+    public PriorityQueue getMaxTree() {
+        return tempHeap1;
+    }
+    /**
+     * Gathers an HashMap of the newly Huffmanized symbols
+     * @param symbolsInBinary. HashMap containing a symbol as the key
+     * and the newly set binary representation as its value
+     * @param binary the Huffman-binary that is set as a symbols value in the 
+     * HashMap
+     * 
+     * 
      */
     public void encodeTree() {
 
@@ -130,27 +148,38 @@ public class huffmanTree {
 
     /**
      * @param s3 the original input
-     * @param s4 the now compressed string in binary
+     * @param s4 compressed-input string in binary
      * @return returns the compressed string in binary
      */
-    public String getCompString() {
+    public String getCompString() throws Exception {
         String s4 = "";
-        String s3 = freq1.getInput();
-        
+        String s3 = this.input;
         Character c3;
-        
+        StringBuilder sb = new StringBuilder();
         for (int l = 0; l < s3.length(); l++) {
             c3 = s3.charAt(l);
             
            
            
 
-            s4 = s4 + (this.symbolsInBinary.get(c3.toString()).substring(1));
+            s4 = this.symbolsInBinary.get(c3.toString()).substring(1);
+            sb.append(s4);
         }
+        s4 = sb.toString();
         return s4;
     }
-
-    public String decodeTree() {
+    /**
+     * This method decodes Huffman coded input-string
+     * @param s3 is read for the individual '0' and '1' which determine
+     * what to look for in the Huffman-tree
+     * @param s4 The decoded string.
+     * @param tempHeap2 A copy of the Huffman-tree that was built before using
+     * the original in the encoding.
+     * @param tempLeaf Temporary Leaf for handling the Huffman-tree
+     * @return
+     * @throws Exception 
+     */
+    public String decodeTree() throws Exception {
         
         String s3 = getCompString();
 

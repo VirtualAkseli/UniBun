@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>huffmanTree.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UniBun</a> &gt; <a href="index.source.html" class="el_package">aknu.unibun.domain</a> &gt; <span class="el_source">huffmanTree.java</span></div><h1>huffmanTree.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package aknu.unibun.domain;
+
+import aknu.unibun.io.UniBunInput;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+/**
+ * This class builds the Huffman Tree.
+ *
+ * @author aknu
+ */
+public class huffmanTree {
+
+<span class="fc" id="L20">    HashMap&lt;String, String&gt; symbolsInBinary = new HashMap();</span>
+<span class="fc" id="L21">    Comparator&lt;Leaf&gt; leafComp = new LeafComparatorMax();</span>
+    frequencyCalculator freq1;
+    Leaf tempLeaf;
+    Leaf root;
+    PriorityQueue tempHeap1;
+    PriorityQueue tempHeap2;
+    UniBunInput ubi;
+    private String input;
+
+<span class="fc" id="L30">    public huffmanTree() throws Exception {</span>
+<span class="fc" id="L31">        this.freq1 = new frequencyCalculator();</span>
+<span class="fc" id="L32">        UniBunInput ubi = new UniBunInput();</span>
+        
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * Given a heap of symbol-nodes (Leaf), this method sorts the nodes into a
+     * Huffman Tree, so that polling the heap returns the highest probability
+     * Leaf.
+     *
+     * @param tempHeap heap for sorting the input heap's contents into a Huffman
+     * Tree.
+     * @param tempLeaf temporary Leaf for handling the polled node.
+     * @param inputHeap
+     */
+    public void sortToMaxTree(PriorityQueue inputHeap, String input) {
+<span class="fc" id="L47">        this.input = input;</span>
+<span class="fc" id="L48">        tempHeap1 = new PriorityQueue(50, leafComp);</span>
+<span class="fc" id="L49">        tempHeap2 = new PriorityQueue(50, leafComp);</span>
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        while (inputHeap.size() &gt; 1) {</span>
+
+<span class="fc" id="L53">            Leaf combLeaf = new Leaf(&quot;&quot;, 0);</span>
+
+<span class="fc" id="L55">            tempLeaf = (Leaf) inputHeap.poll();</span>
+
+<span class="fc" id="L57">            combLeaf.setLeft(tempLeaf);</span>
+<span class="fc" id="L58">            this.symbolsInBinary.put(tempLeaf.getSymbol(), &quot;1&quot;);</span>
+           
+<span class="fc" id="L60">            String combSymb = tempLeaf.getSymbol().toString();</span>
+<span class="fc" id="L61">            Double combProb = tempLeaf.getProbability();</span>
+<span class="fc" id="L62">            tempLeaf = (Leaf) inputHeap.poll();</span>
+
+<span class="fc" id="L64">            combLeaf.setRight(tempLeaf);</span>
+<span class="fc" id="L65">            this.symbolsInBinary.put(tempLeaf.getSymbol(), &quot;0&quot;);</span>
+            
+<span class="fc" id="L67">            combProb += tempLeaf.getProbability();</span>
+<span class="fc" id="L68">            combLeaf.setProbability(combProb);</span>
+<span class="fc" id="L69">            combLeaf.setSymbol(tempLeaf.getSymbol() + combSymb);</span>
+
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">            if (!tempHeap1.contains(combLeaf)) {</span>
+<span class="fc" id="L72">                tempHeap1.add(combLeaf);</span>
+<span class="fc" id="L73">                tempHeap2.add(combLeaf);</span>
+            }
+<span class="fc" id="L75">            inputHeap.add(combLeaf);</span>
+
+<span class="fc" id="L77">        }</span>
+
+<span class="fc" id="L79">        encodeTree();</span>
+
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * This method gathers the Huffman coded binary strings for every symbol of
+     * the tree's nodes.
+     *
+     */
+    
+    public PriorityQueue getMaxTree() {
+<span class="nc" id="L90">        return tempHeap1;</span>
+    }
+    
+    public void encodeTree() {
+
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        while (!tempHeap1.isEmpty()) {</span>
+<span class="fc" id="L96">            tempLeaf = (Leaf) tempHeap1.poll();</span>
+
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">            if (tempLeaf.getLeft() != null) {</span>
+                
+<span class="fc bfc" id="L100" title="All 2 branches covered.">                for (int j = 0; j &lt; tempLeaf.getLeft().getSymbol().length(); j++) {</span>
+<span class="fc" id="L101">                    Character binaryKey = tempLeaf.getSymbol().charAt(j);</span>
+<span class="fc" id="L102">                    String binary = this.symbolsInBinary.get(binaryKey.toString());</span>
+
+<span class="fc" id="L104">                    Character s = tempLeaf.getLeft().getSymbol().charAt(j);</span>
+<span class="fc" id="L105">                    this.symbolsInBinary.put(s.toString(), binary + &quot;1&quot;);</span>
+
+                }
+            }
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">            if (tempLeaf.getRight() != null) {</span>
+                
+<span class="fc bfc" id="L111" title="All 2 branches covered.">                for (int j = 0; j &lt; tempLeaf.getRight().getSymbol().length(); j++) {</span>
+<span class="fc" id="L112">                    Character binaryKey = tempLeaf.getSymbol().charAt(j);</span>
+<span class="fc" id="L113">                    String binary = this.symbolsInBinary.get(binaryKey.toString());</span>
+
+<span class="fc" id="L115">                    Character s = tempLeaf.getRight().getSymbol().charAt(j);</span>
+<span class="fc" id="L116">                    this.symbolsInBinary.put(s.toString(), binary + &quot;0&quot;);</span>
+
+                }
+            }
+
+            //test print 
+<span class="fc" id="L122">            System.out.println(tempLeaf.toString()</span>
+                    + &quot;. Lapset: vasen: &quot;
+<span class="fc" id="L124">                    + tempLeaf.getLeft()</span>
+                    + &quot; , oikea: &quot;
+<span class="fc" id="L126">                    + tempLeaf.getRight());</span>
+
+        }
+
+        //print final Huffman binary for symbols
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        for (String name : this.symbolsInBinary.keySet()) {</span>
+<span class="fc" id="L132">            String key = name.toString();</span>
+<span class="fc" id="L133">            String value = this.symbolsInBinary.get(name).toString();</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">            if (key.length() &lt; 2) {</span>
+<span class="fc" id="L135">                System.out.println(key + &quot; :&quot; + value.substring(1));</span>
+            }
+<span class="fc" id="L137">        }</span>
+
+<span class="fc" id="L139">    }</span>
+
+    /**
+     * @param s3 the original input
+     * @param s4 the now compressed string in binary
+     * @return returns the compressed string in binary
+     */
+    public String getCompString() throws Exception {
+<span class="fc" id="L147">        String s4 = &quot;&quot;;</span>
+<span class="fc" id="L148">        String s3 = this.input;</span>
+        Character c3;
+<span class="fc" id="L150">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        for (int l = 0; l &lt; s3.length(); l++) {</span>
+<span class="fc" id="L152">            c3 = s3.charAt(l);</span>
+            
+           
+           
+
+<span class="fc" id="L157">            s4 = this.symbolsInBinary.get(c3.toString()).substring(1);</span>
+<span class="fc" id="L158">            sb.append(s4);</span>
+        }
+<span class="fc" id="L160">        s4 = sb.toString();</span>
+<span class="fc" id="L161">        return s4;</span>
+    }
+
+    public String decodeTree() throws Exception {
+        
+<span class="fc" id="L166">        String s3 = getCompString();</span>
+
+<span class="fc" id="L168">        String s4 = &quot;&quot;;</span>
+<span class="fc" id="L169">        int i = 0;</span>
+<span class="fc" id="L170">        tempLeaf = (Leaf) tempHeap2.poll();</span>
+<span class="fc" id="L171">        root = tempLeaf;</span>
+
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        while (s3.length() &gt; i) {</span>
+
+<span class="fc bfc" id="L175" title="All 2 branches covered.">            if (s3.charAt(i) == '1') {</span>
+                
+<span class="fc" id="L177">                tempLeaf = tempLeaf.getLeft();</span>
+            } else {
+                
+<span class="fc" id="L180">                tempLeaf = tempLeaf.getRight();</span>
+            }
+<span class="fc" id="L182">            i++;</span>
+
+<span class="fc bfc" id="L184" title="All 2 branches covered.">            if (tempLeaf.getSymbol().length() == 1) {</span>
+               
+<span class="fc" id="L186">                s4 = s4 + tempLeaf.getSymbol();</span>
+
+<span class="fc" id="L188">                tempLeaf = root;</span>
+                
+            }
+
+        }
+<span class="fc" id="L193">        return s4;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

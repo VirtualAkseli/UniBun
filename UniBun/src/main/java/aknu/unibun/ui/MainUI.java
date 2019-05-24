@@ -26,20 +26,63 @@ import java.util.PriorityQueue;
 public class MainUI {
 
     private static final Charset UTF_8 = Charset.forName("UTF-8");
-
+   
+        
     public static void main(String[] args) throws Exception {
+        String ts1 = 
+                "(Huh, hah, huh, hah Huh, hah, huh, hah Huh, "
+               + "hah, huh, hah Huh, hah, huh, hah)"
+               + " (Huh-hah-huh-hah Huh-hah-huh-hah)"
+               + " Hän Karakorumista ajoi Pekingiin orillaan "
+               + "(Hah, huh, hah) Kiinalainen väki joutui"
+               + " paniikkiin torillaan (Hah, huh, hah)"
+               + " Ja erämaassa Gobin hän totesi vain"
+               + " Tän tappamisen jobin, kun lahjaks sain"
+               + " Ja sitten, pojat, mennään Persiaan "
+               + "(Huh) (Hah) Tsing, Tsing, Tsingis Khan"
+               + " Kaikkien naapurikansojen alistaja"
+               + " Tsing, Tsing, Tsingis Khan "
+               + "Hirveän miekkansa hilpeä kalistaja Sapelia käytti,"
+               + " vuoh hoh hoh hoh hoo Maan kauhulla hän täytti,"
+               + " ah hah hah hah haa Elintilaa huusi tullessaan"
+               + " Tsing, Tsing, Tsingis Khan "
+               + "Kaikkien naapurikansojen alistaja "
+               + "Tsing, Tsing, Tsingis Khan "
+               + "Aikamme valtiomiehien valistaja "
+               + "Sapelia käytti, vuoh hoh hoh hoh hoo "
+               + "Esimerkin näytti, ah hah hah hah haa "
+               + "Hommat niin myös tänään hoidellaan "
+               + "Niin moni nytkin elintilaa itselleen pimittää "
+               + "(Hah, huh, hah) "
+               + "Ja uudet rajat naapurinsa eteiseen nimittää "
+               + "(Hah, huh, hah) Mut heikompi jos kysyy, "
+               + "tää oikeinko on? Niin päätös on ja pysyy, "
+               + "saat lausunnon Jatkuu aina perinne vain tää "
+               + "(Huh) (Hah) Tsing, Tsing, Tsingis Khan "
+               + "Kaikkien naapurikansojen alistaja "
+               + "Tsing, Tsing, Tsingis Khan "
+               + "Hirveän miekkansa hilpeä kalistaja "
+               + "Sapelia käytti, vuoh hoh hoh hoh hoo "
+               + "Maan kauhulla hän täytti, ah hah hah hah haa "
+               + "Elintilaa huusi tullessaan Tsing, Tsing, Tsingis Khan "
+               + "Kaikkien naapurikansojen alistaja "
+               + "Tsing, Tsing, Tsingis Khan "
+               + "Aikamme valtiomiehien valistaja Sapelia käytti, "
+               + "vuoh hoh hoh hoh hoo Esimerkin näytti, "
+               + "ah hah hah hah haa Hommat niin myös tänään hoidellaan ";
         
         boolean print = false;
+        
         frequencyCalculator fq = new frequencyCalculator();
         huffmanTree ht = new huffmanTree();
         Comparator<Leaf> comp = new LeafComparator();
         PriorityQueue freqHeap = new PriorityQueue(50, comp);
-        freqHeap = fq.frequencyCalculator("");
+        freqHeap = fq.frequencyCalculator(ts1);
         /* freqHeap.forEach((t) -> {
             System.out.println(t);
         }); */
 
-        ht.sortToMaxTree(freqHeap);
+        ht.sortToMaxTree(freqHeap, ts1);
 
         /*while (!freqHeap.isEmpty()) {
             System.out.println(freqHeap.poll().toString());
@@ -69,7 +112,7 @@ public class MainUI {
         UniBunOutput out = new UniBunOutput();
         String output = "";
         
-        output = newInput.getBase64String(bytes);
+        output = compString;
         
         System.out.println("Alkuperäisen merkkijonon pituus: " + input.length()*8);
         System.out.println("Lyhenetyn merkkijonon pituus: " + compString.length());

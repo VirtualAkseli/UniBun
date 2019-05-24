@@ -8,7 +8,7 @@ package aknu.unibun.domain;
 import java.util.HashMap;
 import aknu.unibun.domain.Leaf;
 import aknu.unibun.io.UniBunInput;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,15 +30,25 @@ public class frequencyCalculator {
     PriorityQueue<Leaf> frequencyHeap;
     ArrayList<Character> seenChars;
     String input;
+    UniBunInput newInput;
 
     public frequencyCalculator() throws Exception {
-        UniBunInput newInput = new UniBunInput();
-         input = newInput.GetUniBunInput();
-        setInput(input);
+        newInput = new UniBunInput();
+
     }
 
-    public PriorityQueue frequencyCalculator(String input) throws Exception {
+    /**
+     *
+     * @param progInput
+     * @param seenChars An ArrayList for storing the characters that have
+     * already been counted
+     * @return
+     * @throws Exception
+     */
+    public PriorityQueue frequencyCalculator(String progInput) throws Exception {
         seenChars = new ArrayList();
+
+        setInput(progInput);
         Comparator<Leaf> comp = new LeafComparator();
         frequencyHeap = new PriorityQueue<Leaf>(50, comp);
 
@@ -54,6 +64,15 @@ public class frequencyCalculator {
         return frequencyHeap;
     }
 
+    /**
+     * The method counts the occurennce of individual characters in a
+     * given input and then forms nodes with an unique character and it's
+     * probability as parameters.
+     *
+     * @param input the input (in String at the moment,) from which
+     * the huffman tree is built of
+     * @param c
+     */
     public void countCharOccurrence(String input, Character c) {
         double count = 0;
         double freq = 0;

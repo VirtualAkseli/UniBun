@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UniBun</a> &gt; <a href="index.source.html" class="el_package">aknu.unibun.ui</a> &gt; <span class="el_source">MainUI.java</span></div><h1>MainUI.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package aknu.unibun.ui;
+
+import aknu.unibun.domain.Leaf;
+import aknu.unibun.domain.LeafComparator;
+import aknu.unibun.domain.frequencyCalculator;
+import aknu.unibun.domain.huffmanTree;
+import aknu.unibun.io.UniBunInput;
+import aknu.unibun.io.UniBunOutput;
+import com.sun.javafx.fxml.expression.BinaryExpression;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+/**
+ *
+ * @author aknu
+ */
+<span class="nc" id="L26">public class MainUI {</span>
+
+<span class="nc" id="L28">    private static final Charset UTF_8 = Charset.forName(&quot;UTF-8&quot;);</span>
+   
+        
+    public static void main(String[] args) throws Exception {
+<span class="nc" id="L32">        String ts1 = </span>
+                &quot;(Huh, hah, huh, hah Huh, hah, huh, hah Huh, &quot;
+               + &quot;hah, huh, hah Huh, hah, huh, hah)&quot;
+               + &quot; (Huh-hah-huh-hah Huh-hah-huh-hah)&quot;
+               + &quot; Hän Karakorumista ajoi Pekingiin orillaan &quot;
+               + &quot;(Hah, huh, hah) Kiinalainen väki joutui&quot;
+               + &quot; paniikkiin torillaan (Hah, huh, hah)&quot;
+               + &quot; Ja erämaassa Gobin hän totesi vain&quot;
+               + &quot; Tän tappamisen jobin, kun lahjaks sain&quot;
+               + &quot; Ja sitten, pojat, mennään Persiaan &quot;
+               + &quot;(Huh) (Hah) Tsing, Tsing, Tsingis Khan&quot;
+               + &quot; Kaikkien naapurikansojen alistaja&quot;
+               + &quot; Tsing, Tsing, Tsingis Khan &quot;
+               + &quot;Hirveän miekkansa hilpeä kalistaja Sapelia käytti,&quot;
+               + &quot; vuoh hoh hoh hoh hoo Maan kauhulla hän täytti,&quot;
+               + &quot; ah hah hah hah haa Elintilaa huusi tullessaan&quot;
+               + &quot; Tsing, Tsing, Tsingis Khan &quot;
+               + &quot;Kaikkien naapurikansojen alistaja &quot;
+               + &quot;Tsing, Tsing, Tsingis Khan &quot;
+               + &quot;Aikamme valtiomiehien valistaja &quot;
+               + &quot;Sapelia käytti, vuoh hoh hoh hoh hoo &quot;
+               + &quot;Esimerkin näytti, ah hah hah hah haa &quot;
+               + &quot;Hommat niin myös tänään hoidellaan &quot;
+               + &quot;Niin moni nytkin elintilaa itselleen pimittää &quot;
+               + &quot;(Hah, huh, hah) &quot;
+               + &quot;Ja uudet rajat naapurinsa eteiseen nimittää &quot;
+               + &quot;(Hah, huh, hah) Mut heikompi jos kysyy, &quot;
+               + &quot;tää oikeinko on? Niin päätös on ja pysyy, &quot;
+               + &quot;saat lausunnon Jatkuu aina perinne vain tää &quot;
+               + &quot;(Huh) (Hah) Tsing, Tsing, Tsingis Khan &quot;
+               + &quot;Kaikkien naapurikansojen alistaja &quot;
+               + &quot;Tsing, Tsing, Tsingis Khan &quot;
+               + &quot;Hirveän miekkansa hilpeä kalistaja &quot;
+               + &quot;Sapelia käytti, vuoh hoh hoh hoh hoo &quot;
+               + &quot;Maan kauhulla hän täytti, ah hah hah hah haa &quot;
+               + &quot;Elintilaa huusi tullessaan Tsing, Tsing, Tsingis Khan &quot;
+               + &quot;Kaikkien naapurikansojen alistaja &quot;
+               + &quot;Tsing, Tsing, Tsingis Khan &quot;
+               + &quot;Aikamme valtiomiehien valistaja Sapelia käytti, &quot;
+               + &quot;vuoh hoh hoh hoh hoo Esimerkin näytti, &quot;
+               + &quot;ah hah hah hah haa Hommat niin myös tänään hoidellaan &quot;;
+        
+<span class="nc" id="L74">        boolean print = false;</span>
+        
+<span class="nc" id="L76">        frequencyCalculator fq = new frequencyCalculator();</span>
+<span class="nc" id="L77">        huffmanTree ht = new huffmanTree();</span>
+<span class="nc" id="L78">        Comparator&lt;Leaf&gt; comp = new LeafComparator();</span>
+<span class="nc" id="L79">        PriorityQueue freqHeap = new PriorityQueue(50, comp);</span>
+<span class="nc" id="L80">        freqHeap = fq.frequencyCalculator(ts1);</span>
+        /* freqHeap.forEach((t) -&gt; {
+            System.out.println(t);
+        }); */
+
+<span class="nc" id="L85">        ht.sortToMaxTree(freqHeap, ts1);</span>
+
+        /*while (!freqHeap.isEmpty()) {
+            System.out.println(freqHeap.poll().toString());
+        }*/
+        byte[] bytes;
+<span class="nc" id="L91">        UniBunInput newInput = new UniBunInput();</span>
+<span class="nc" id="L92">        String input = newInput.GetUniBunInput();</span>
+<span class="nc" id="L93">        String compString = ht.getCompString();</span>
+        
+<span class="nc" id="L95">        bytes = input.getBytes(UTF_8);</span>
+        
+        
+        
+        /* System.out.println(&quot;bytes= &quot;);
+        for (int i = 0; i &lt; bytes.length; i++) {
+            String s1 = String.format(&quot;%8s&quot;, Integer.toBinaryString(bytes[i] &amp; 0xFF)).replace(' ', '0');
+            System.out.print(s1);
+
+        } */
+        
+<span class="nc" id="L106">        System.out.println(&quot;&quot;);</span>
+        //System.out.println(&quot;Merkkijonon pituus ennen kompressiota: &quot; + input.length() * 8);
+        /*
+        System.out.println(&quot;\r Kompressoitu jono: &quot; + compString);
+        //System.out.println(&quot;Pituus kompression jälkeen: &quot; + compString.length());
+         */
+<span class="nc" id="L112">        UniBunOutput out = new UniBunOutput();</span>
+<span class="nc" id="L113">        String output = &quot;&quot;;</span>
+        
+<span class="nc" id="L115">        output = compString;</span>
+        
+<span class="nc" id="L117">        System.out.println(&quot;Alkuperäisen merkkijonon pituus: &quot; + input.length()*8);</span>
+<span class="nc" id="L118">        System.out.println(&quot;Lyhenetyn merkkijonon pituus: &quot; + compString.length());</span>
+<span class="nc" id="L119">        System.out.println(&quot;&quot;);</span>
+        
+<span class="nc" id="L121">        out.UniBunOutput(output);</span>
+        
+<span class="nc" id="L123">        Double d1 = compString.length() / 1.0;</span>
+<span class="nc" id="L124">        d1 = d1 / (input.length() *8);</span>
+<span class="nc" id="L125">        d1 = 1 - d1;</span>
+       
+<span class="nc" id="L127">        System.out.println(&quot;\b Kompressioaste: &quot; + (d1) * 100 + &quot;%&quot;);</span>
+
+<span class="nc" id="L129">        System.out.println(&quot;Alkuperäinen syöte: &quot; + ht.decodeTree());</span>
+        
+<span class="nc" id="L131">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

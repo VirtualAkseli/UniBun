@@ -6,7 +6,7 @@
 package aknu.unibun.io;
 
 import aknu.unibun.domain.Leaf;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-import sun.misc.IOUtils;
+
 
 
 /**
@@ -87,36 +87,10 @@ Path path2;
        
     }
     
-    public byte[] getBytes() throws FileNotFoundException, IOException {
-        
-        
-         int length = (int) testImg.length();
-       FileInputStream fis = new FileInputStream(testImg);
-       BufferedInputStream bis = new BufferedInputStream(fis);
-       
-       byte[] input = IOUtils.readNBytes(bis, length);
-       
-       return input;
-    }
+   
     
-    private byte[] readBinaryFile(String filename) throws IOException {
-        return Files.readAllBytes(path);
-    }
-    
-    private void writeBinaryFile(byte[] bytes) throws IOException {
-        Files.write(path2, bytes);
-    }
-    
-    public String getBase64String(byte[] input) {
-        
-        return Base64.encode(input);
-    }
+   
     
     
-    private String encodeFileToBase64Binary(File file) throws Exception {
-        FileInputStream fileInputStreamReader = new FileInputStream(testText);
-        byte[] bytes = new byte[(int) file.length()];
-        fileInputStreamReader.read(bytes);
-        return new String(Base64.encode(bytes));
-    }
+    
 }

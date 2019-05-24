@@ -5,8 +5,8 @@
  */
 package aknu.unibun.io;
 
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,18 +15,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
+ * This class will export a "filename.bun" that will be noticeably smaller than
+ * the original file. 
  *
  * @author aknu
  */
 public class UniBunOutput {
     
     
-    public void UniBunOutput(String input) throws IOException, Base64DecodingException {
+    public void UniBunOutput(String input) throws IOException {
         
         File output = new File("test2.bun");
         Path path = FileSystems.getDefault().getPath(".", "test2.bun");
         
-        byte[] bytes = Base64.decode(input);
+        byte[] bytes = input.getBytes();
         
         Files.write(path, bytes);
         
