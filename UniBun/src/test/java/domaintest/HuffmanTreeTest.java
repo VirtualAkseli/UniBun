@@ -18,19 +18,20 @@ import static org.junit.Assert.*;
  */
 public class HuffmanTreeTest {
 
-    String testInput;
+    byte[] testInput;
     huffmanTree ht;
     frequencyCalculator freq;
 
     public HuffmanTreeTest() {
 
-        testInput = "Osterit (Ostreidae) on meressä elävä simpukkaheimo, "
+        String test = "Osterit (Ostreidae) on meressä elävä simpukkaheimo, "
                 + "johon kuuluu toistakymmentä sukua. "
                 + "Joitakin osterilajeja viljellään ja kerätään "
                 + "luonnosta ihmisravinnoksi, ja ne ovat "
                 + "kulinaarisesti arvostettuja. Syötävien osterien "
                 + "levinneisyysalueet ovat istutusten myötä "
                 + "laajentuneet suuresti alkuperäisestä. ";
+        testInput = test.getBytes();
     }
 
     @Before
@@ -40,13 +41,11 @@ public class HuffmanTreeTest {
         ht.sortToMaxTree(freq.frequencyCalculator(testInput), testInput);
     }
 
-   @Test
+    @Test
     public void DecodingWorks() throws Exception {
-       
+
         assertEquals(testInput, ht.decodeTree());
-        
+
     }
-    
-    
 
 }
