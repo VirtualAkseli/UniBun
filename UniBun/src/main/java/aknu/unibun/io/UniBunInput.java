@@ -20,11 +20,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import sun.misc.IOUtils;
 
 
 
 /**
- *
+ * This class is intended to manage Input and tranform any given 
+ * file to a byte-array
  * @author aknu
  */
 public class UniBunInput {
@@ -34,12 +36,11 @@ public class UniBunInput {
     String input;
     String encodeString;
     byte[] bytes;
-    File testImg = new File("/home/local/aknu/TiraLabra/UniBun/src/UniBun/src/main/resources/hb.jpeg");
-    File testText = new File("stockText");
-    String outPutName = "/home/local/aknu/TiraLabra/UniBun/src/UniBun/src/main/resources/output2.bun";
-Path path;
+    File testImg = new File("hb.jpeg");
+    File testText = new File("test.txt");
+   Path path;
 Path path2;
-    public String GetUniBunInput() throws Exception {
+    public byte[] GetUniBunInput() throws Exception {
         
         String ts1 = 
                 "(Huh, hah, huh, hah Huh, hah, huh, hah Huh, "
@@ -83,11 +84,24 @@ Path path2;
                + "vuoh hoh hoh hoh hoo Esimerkin näytti, "
                + "ah hah hah hah haa Hommat niin myös tänään hoidellaan ";
         
-       return ts1;
+        
+        
+        String ts2 = "missisippi";
+       return ts2.getBytes();
        
     }
     
-   
+   public byte[] getBytes() throws FileNotFoundException, IOException {
+        
+        
+         int length = (int) testText.length();
+       FileInputStream fis = new FileInputStream(testText);
+       BufferedInputStream bis = new BufferedInputStream(fis);
+       
+       byte[] input = IOUtils.readNBytes(bis, length);
+       
+       return input;
+    }
     
    
     

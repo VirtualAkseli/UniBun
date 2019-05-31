@@ -15,26 +15,30 @@ package aknu.unibun.domain;
  */
 public class Leaf {
 
-    String symbol;
+    byte symbol;
     double probability;
     double combinedProb;
+    Leaf parent;
     Leaf leafLeft;
     Leaf leafRight;
+    Boolean ready;
     
-    public Leaf(String c, double d) {
+    public Leaf(byte c, double d) {
         this.symbol = c;
         this.probability = d;
         this.combinedProb = 0;
         this.leafLeft = null;
         this.leafRight = null;
+        this.parent = null;
+        this.ready = false;
         
     }
     
-    public void setSymbol(String input) {
+    public void setSymbol(byte input) {
         this.symbol = input;
     }
 
-    public String getSymbol() {
+    public byte getSymbol() {
         return this.symbol;
     }
 
@@ -44,6 +48,22 @@ public class Leaf {
     
     public Double getProbability() {
         return this.probability;
+    }
+    
+    public void setParent(Leaf par) {
+        this.parent = par;
+    }
+    
+    public Leaf getParent() {
+        return this.parent;
+    }
+    
+    public void setReady(){
+        this.ready = true;
+    }
+    
+    public boolean getReady() {
+        return this.ready;
     }
 
     @Override

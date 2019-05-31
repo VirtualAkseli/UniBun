@@ -1,4 +1,2 @@
 aknu/unibun/domain/Leaf.class
-aknu/unibun/domain/LeafComparator.class
-aknu/unibun/domain/LeafComparatorMax.class
 aknu/unibun/domain/huffmanTree.class
