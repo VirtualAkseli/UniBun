@@ -20,28 +20,29 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import sun.misc.IOUtils;
 
 
 
 /**
- *
+ * This class is intended to manage Input and tranform any given 
+ * file to a byte-array
  * @author aknu
  */
-<span class="fc" id="L30">public class UniBunInput {</span>
+<span class="fc" id="L32">public class UniBunInput {</span>
 
     PriorityQueue&lt;Leaf&gt; frequencyHeap;
     ArrayList&lt;Character&gt; seenChars;
     String input;
     String encodeString;
     byte[] bytes;
-<span class="fc" id="L37">    File testImg = new File(&quot;/home/local/aknu/TiraLabra/UniBun/src/UniBun/src/main/resources/hb.jpeg&quot;);</span>
-<span class="fc" id="L38">    File testText = new File(&quot;stockText&quot;);</span>
-<span class="fc" id="L39">    String outPutName = &quot;/home/local/aknu/TiraLabra/UniBun/src/UniBun/src/main/resources/output2.bun&quot;;</span>
-Path path;
+<span class="fc" id="L39">    File testImg = new File(&quot;hb.jpeg&quot;);</span>
+<span class="fc" id="L40">    File testText = new File(&quot;test.txt&quot;);</span>
+   Path path;
 Path path2;
-    public String GetUniBunInput() throws Exception {
+    public byte[] GetUniBunInput() throws Exception {
         
-<span class="nc" id="L44">        String ts1 = </span>
+<span class="nc" id="L45">        String ts1 = </span>
                 &quot;(Huh, hah, huh, hah Huh, hah, huh, hah Huh, &quot;
                + &quot;hah, huh, hah Huh, hah, huh, hah)&quot;
                + &quot; (Huh-hah-huh-hah Huh-hah-huh-hah)&quot;
@@ -83,11 +84,24 @@ Path path2;
                + &quot;vuoh hoh hoh hoh hoo Esimerkin näytti, &quot;
                + &quot;ah hah hah hah haa Hommat niin myös tänään hoidellaan &quot;;
         
-<span class="nc" id="L86">       return ts1;</span>
+        
+        
+<span class="nc" id="L89">        String ts2 = &quot;missisippi&quot;;</span>
+<span class="nc" id="L90">       return ts2.getBytes();</span>
        
     }
     
-   
+   public byte[] getBytes() throws FileNotFoundException, IOException {
+        
+        
+<span class="nc" id="L97">         int length = (int) testText.length();</span>
+<span class="nc" id="L98">       FileInputStream fis = new FileInputStream(testText);</span>
+<span class="nc" id="L99">       BufferedInputStream bis = new BufferedInputStream(fis);</span>
+       
+<span class="nc" id="L101">       byte[] input = IOUtils.readNBytes(bis, length);</span>
+       
+<span class="nc" id="L103">       return input;</span>
+    }
     
    
     

@@ -15,63 +15,83 @@ package aknu.unibun.domain;
  */
 public class Leaf {
 
-    String symbol;
+    byte symbol;
     double probability;
     double combinedProb;
+    Leaf parent;
     Leaf leafLeft;
     Leaf leafRight;
+    Boolean ready;
     
-<span class="fc" id="L24">    public Leaf(String c, double d) {</span>
-<span class="fc" id="L25">        this.symbol = c;</span>
-<span class="fc" id="L26">        this.probability = d;</span>
-<span class="fc" id="L27">        this.combinedProb = 0;</span>
-<span class="fc" id="L28">        this.leafLeft = null;</span>
-<span class="fc" id="L29">        this.leafRight = null;</span>
+<span class="fc" id="L26">    public Leaf(byte c, double d) {</span>
+<span class="fc" id="L27">        this.symbol = c;</span>
+<span class="fc" id="L28">        this.probability = d;</span>
+<span class="fc" id="L29">        this.combinedProb = 0;</span>
+<span class="fc" id="L30">        this.leafLeft = null;</span>
+<span class="fc" id="L31">        this.leafRight = null;</span>
+<span class="fc" id="L32">        this.parent = null;</span>
+<span class="fc" id="L33">        this.ready = false;</span>
         
-<span class="fc" id="L31">    }</span>
-    
-    public void setSymbol(String input) {
-<span class="fc" id="L34">        this.symbol = input;</span>
 <span class="fc" id="L35">    }</span>
+    
+    public void setSymbol(byte input) {
+<span class="fc" id="L38">        this.symbol = input;</span>
+<span class="fc" id="L39">    }</span>
 
-    public String getSymbol() {
-<span class="fc" id="L38">        return this.symbol;</span>
+    public byte getSymbol() {
+<span class="fc" id="L42">        return this.symbol;</span>
     }
 
     public void setProbability(Double prob) {
-<span class="fc" id="L42">        this.probability = prob;</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L46">        this.probability = prob;</span>
+<span class="fc" id="L47">    }</span>
     
     public Double getProbability() {
-<span class="fc" id="L46">        return this.probability;</span>
+<span class="fc" id="L50">        return this.probability;</span>
+    }
+    
+    public void setParent(Leaf par) {
+<span class="nc" id="L54">        this.parent = par;</span>
+<span class="nc" id="L55">    }</span>
+    
+    public Leaf getParent() {
+<span class="nc" id="L58">        return this.parent;</span>
+    }
+    
+    public void setReady(){
+<span class="nc" id="L62">        this.ready = true;</span>
+<span class="nc" id="L63">    }</span>
+    
+    public boolean getReady() {
+<span class="nc" id="L66">        return this.ready;</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L51">        return this.symbol + &quot;: &quot; + this.probability;</span>
+<span class="fc" id="L71">        return this.symbol + &quot;: &quot; + this.probability;</span>
     }
 
     public void MergeProb(Leaf otherLeaf) {
-<span class="nc" id="L55">        this.combinedProb = this.probability</span>
-<span class="nc" id="L56">                + otherLeaf.getProbability();</span>
+<span class="nc" id="L75">        this.combinedProb = this.probability</span>
+<span class="nc" id="L76">                + otherLeaf.getProbability();</span>
         
 
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L79">    }</span>
     
     public void setLeft(Leaf leftLeaf) {
-<span class="fc" id="L62">        this.leafLeft = leftLeaf;</span>
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L82">        this.leafLeft = leftLeaf;</span>
+<span class="fc" id="L83">    }</span>
     
     public Leaf getLeft() {
-<span class="fc" id="L66">        return this.leafLeft;</span>
+<span class="fc" id="L86">        return this.leafLeft;</span>
     }
     
     public void setRight(Leaf rightLeaf) {
-<span class="fc" id="L70">        this.leafRight = rightLeaf;</span>
-<span class="fc" id="L71">    }</span>
+<span class="fc" id="L90">        this.leafRight = rightLeaf;</span>
+<span class="fc" id="L91">    }</span>
     
     public Leaf getRight() {
-<span class="fc" id="L74">        return this.leafRight;</span>
+<span class="fc" id="L94">        return this.leafRight;</span>
     }
 
     

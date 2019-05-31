@@ -5,8 +5,6 @@
  */
 package aknu.unibun.io;
 
-
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,21 +13,31 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
+ * This class will export a &quot;filename.bun&quot; that will be noticeably smaller than
+ * the original file.
  *
  * @author aknu
  */
 <span class="nc" id="L21">public class UniBunOutput {</span>
-    
-    
-    public void UniBunOutput(String input) throws IOException {
-        
-<span class="nc" id="L26">        File output = new File(&quot;test2.bun&quot;);</span>
-<span class="nc" id="L27">        Path path = FileSystems.getDefault().getPath(&quot;.&quot;, &quot;test2.bun&quot;);</span>
-        
-<span class="nc" id="L29">        byte[] bytes = input.getBytes();</span>
-        
-<span class="nc" id="L31">        Files.write(path, bytes);</span>
-        
+
+    File output;
+    Path path;
+
+    public void UniBunOutput(byte[] input) throws IOException {
+
+<span class="nc" id="L28">        File output = new File(&quot;test22.bun&quot;);</span>
+<span class="nc" id="L29">        Path path = FileSystems.getDefault().getPath(&quot;.&quot;, &quot;test22.bun&quot;);</span>
+
+<span class="nc" id="L31">        Files.write(path, input);</span>
+
 <span class="nc" id="L33">    }</span>
+
+    public void decodeFile(byte[] input) throws IOException {
+<span class="nc" id="L36">        output = new File(&quot;decomp&quot;);</span>
+<span class="nc" id="L37">        path = FileSystems.getDefault().getPath(&quot;.&quot;, &quot;decomp&quot;);</span>
+
+<span class="nc" id="L39">        Files.write(path, input);</span>
+
+<span class="nc" id="L41">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

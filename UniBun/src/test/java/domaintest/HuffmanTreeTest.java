@@ -41,7 +41,7 @@ public class HuffmanTreeTest {
         ht.sortToMaxTree(freq.frequencyCalculator(testInput), testInput);
     }
 
-    @Test
+    
     public void DecodingWorks() throws Exception {
 
         assertEquals(testInput, ht.decodeTree());

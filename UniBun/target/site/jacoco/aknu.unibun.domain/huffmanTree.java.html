@@ -17,7 +17,7 @@ import java.util.PriorityQueue;
  */
 public class huffmanTree {
 
-<span class="fc" id="L20">    HashMap&lt;String, String&gt; symbolsInBinary = new HashMap();</span>
+<span class="fc" id="L20">    HashMap&lt;Byte, Byte&gt; symbolsInBinary = new HashMap();</span>
 <span class="fc" id="L21">    Comparator&lt;Leaf&gt; leafComp = new LeafComparatorMax();</span>
     frequencyCalculator freq1;
     Leaf tempLeaf;
@@ -25,13 +25,16 @@ public class huffmanTree {
     PriorityQueue tempHeap1;
     PriorityQueue tempHeap2;
     UniBunInput ubi;
-    private String input;
+    private byte[] input;
+<span class="fc" id="L29">    int recurseCount = 0;</span>
+<span class="fc" id="L30">    Byte b0 = new Byte(&quot;0&quot;);</span>
+<span class="fc" id="L31">    Byte b1 = new Byte(&quot;1&quot;);</span>
 
-<span class="fc" id="L30">    public huffmanTree() throws Exception {</span>
-<span class="fc" id="L31">        this.freq1 = new frequencyCalculator();</span>
-<span class="fc" id="L32">        UniBunInput ubi = new UniBunInput();</span>
-        
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L33">    public huffmanTree() throws Exception {</span>
+<span class="fc" id="L34">        this.freq1 = new frequencyCalculator();</span>
+<span class="fc" id="L35">        UniBunInput ubi = new UniBunInput();</span>
+
+<span class="fc" id="L37">    }</span>
 
     /**
      * Given a heap of symbol-nodes (Leaf), this method sorts the nodes into a
@@ -43,154 +46,230 @@ public class huffmanTree {
      * @param tempLeaf temporary Leaf for handling the polled node.
      * @param inputHeap
      */
-    public void sortToMaxTree(PriorityQueue inputHeap, String input) {
-<span class="fc" id="L47">        this.input = input;</span>
-<span class="fc" id="L48">        tempHeap1 = new PriorityQueue(50, leafComp);</span>
-<span class="fc" id="L49">        tempHeap2 = new PriorityQueue(50, leafComp);</span>
+    public void sortToMaxTree(PriorityQueue inputHeap, byte[] input) {
+<span class="fc" id="L50">        this.input = input;</span>
+<span class="fc" id="L51">        tempHeap1 = new PriorityQueue(50, leafComp);</span>
+<span class="fc" id="L52">        tempHeap2 = new PriorityQueue(50, leafComp);</span>
 
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        while (inputHeap.size() &gt; 1) {</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        while (inputHeap.size() &gt; 1) {</span>
+<span class="fc" id="L55">            Byte nb = new Byte(&quot;0&quot;);</span>
+<span class="fc" id="L56">            Leaf combLeaf = new Leaf(new Byte(nb), 0);</span>
 
-<span class="fc" id="L53">            Leaf combLeaf = new Leaf(&quot;&quot;, 0);</span>
+<span class="fc" id="L58">            tempLeaf = (Leaf) inputHeap.poll();</span>
 
-<span class="fc" id="L55">            tempLeaf = (Leaf) inputHeap.poll();</span>
+<span class="fc" id="L60">            combLeaf.setLeft(tempLeaf);</span>
+<span class="fc" id="L61">            this.symbolsInBinary.put(tempLeaf.getSymbol(), b1);</span>
 
-<span class="fc" id="L57">            combLeaf.setLeft(tempLeaf);</span>
-<span class="fc" id="L58">            this.symbolsInBinary.put(tempLeaf.getSymbol(), &quot;1&quot;);</span>
-           
-<span class="fc" id="L60">            String combSymb = tempLeaf.getSymbol().toString();</span>
-<span class="fc" id="L61">            Double combProb = tempLeaf.getProbability();</span>
-<span class="fc" id="L62">            tempLeaf = (Leaf) inputHeap.poll();</span>
+<span class="fc" id="L63">            byte combSymb = tempLeaf.getSymbol();</span>
+<span class="fc" id="L64">            Double combProb = tempLeaf.getProbability();</span>
+<span class="fc" id="L65">            tempLeaf = (Leaf) inputHeap.poll();</span>
 
-<span class="fc" id="L64">            combLeaf.setRight(tempLeaf);</span>
-<span class="fc" id="L65">            this.symbolsInBinary.put(tempLeaf.getSymbol(), &quot;0&quot;);</span>
-            
-<span class="fc" id="L67">            combProb += tempLeaf.getProbability();</span>
-<span class="fc" id="L68">            combLeaf.setProbability(combProb);</span>
-<span class="fc" id="L69">            combLeaf.setSymbol(tempLeaf.getSymbol() + combSymb);</span>
+<span class="fc" id="L67">            combLeaf.setRight(tempLeaf);</span>
+<span class="fc" id="L68">            this.symbolsInBinary.put(tempLeaf.getSymbol(), b0);</span>
 
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">            if (!tempHeap1.contains(combLeaf)) {</span>
-<span class="fc" id="L72">                tempHeap1.add(combLeaf);</span>
-<span class="fc" id="L73">                tempHeap2.add(combLeaf);</span>
+<span class="fc" id="L70">            combProb += tempLeaf.getProbability();</span>
+<span class="fc" id="L71">            combLeaf.setProbability(combProb);</span>
+
+<span class="fc" id="L73">            Byte combByte = combineBits(tempLeaf.getSymbol(), combSymb);</span>
+            //System.out.println(&quot;combByte is: &quot; + Integer.toBinaryString(Byte.toUnsignedInt(combSymb)));
+<span class="fc" id="L75">            combLeaf.setSymbol(combByte);</span>
+
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            if (!tempHeap1.contains(combLeaf)) {</span>
+<span class="fc" id="L78">                tempHeap1.add(combLeaf);</span>
+<span class="fc" id="L79">                tempHeap2.add(combLeaf);</span>
             }
-<span class="fc" id="L75">            inputHeap.add(combLeaf);</span>
+<span class="fc" id="L81">            inputHeap.add(combLeaf);</span>
 
-<span class="fc" id="L77">        }</span>
+<span class="fc" id="L83">        }</span>
 
-<span class="fc" id="L79">        encodeTree();</span>
+<span class="fc" id="L85">        encodeTree();</span>
 
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L87">    }</span>
+
+    public Byte combineBits(Byte no1, Byte no2) {
+        Byte rb;
+
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (no2 == b0) {</span>
+<span class="nc" id="L93">            int i = (no1 &lt;&lt; b1);</span>
+
+<span class="nc" id="L95">            rb = (byte) i;</span>
+<span class="nc" id="L96">        } else {</span>
+<span class="fc" id="L97">            int i = (no1 &lt;&lt; b1);</span>
+<span class="fc" id="L98">            i = i + 1;</span>
+
+<span class="fc" id="L100">            rb = (byte) i;</span>
+        }
+<span class="fc" id="L102">        return rb;</span>
+    }
+
+    public Byte combineFunkyBits(Byte no1, Byte no2) {
+        Byte rb;
+
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (no2 == b0) {</span>
+<span class="fc" id="L109">            int i = (no1 &lt;&lt; b1);</span>
+
+<span class="fc" id="L111">            rb = (byte) i;</span>
+<span class="fc" id="L112">        } else {</span>
+<span class="fc" id="L113">            int i = (no1 &lt;&lt; b1);</span>
+<span class="fc" id="L114">            i = i + 1;</span>
+
+<span class="fc" id="L116">            rb = (byte) i;</span>
+        }
+
+<span class="fc" id="L119">        return rb;</span>
+    }
 
     /**
      * This method gathers the Huffman coded binary strings for every symbol of
      * the tree's nodes.
      *
      */
-    
     public PriorityQueue getMaxTree() {
-<span class="nc" id="L90">        return tempHeap1;</span>
+<span class="nc" id="L128">        return tempHeap1;</span>
     }
-    
+
+    public void recurseTree(Leaf root, Byte huffBin) {
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        if (root.getLeft() != null) {</span>
+<span class="fc" id="L133">            System.out.println(&quot;bin is 1&quot;);</span>
+<span class="fc" id="L134">            recurseTree(root.getLeft(), combineFunkyBits(huffBin, b1));</span>
+        }
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (root.getRight() != null) {</span>
+<span class="fc" id="L137">            System.out.println(&quot;bin is 0&quot;);</span>
+<span class="fc" id="L138">            recurseTree(root.getRight(), combineFunkyBits(huffBin, b0));</span>
+        } else {
+<span class="fc" id="L140">            System.out.println(&quot;GOT HERE! &quot; + &quot; Symbol: &quot; + (char) root.getSymbol() + &quot; Binary: &quot; + Integer.toBinaryString(Byte.toUnsignedInt(huffBin)).substring(1));</span>
+<span class="fc" id="L141">            this.symbolsInBinary.put(root.getSymbol(), huffBin);</span>
+        }
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * Gathers an HashMap of the newly Huffmanised symbols
+     *
+     * @param symbolsInBinary. HashMap containing a symbol as the key and the
+     * newly set binary representation as its value
+     * @param binary the Huffman-binary that is set as a symbols value in the
+     * HashMap
+     *
+     *
+     */
     public void encodeTree() {
 
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        while (!tempHeap1.isEmpty()) {</span>
-<span class="fc" id="L96">            tempLeaf = (Leaf) tempHeap1.poll();</span>
+<span class="fc" id="L157">        Leaf root = (Leaf) tempHeap1.peek();</span>
 
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">            if (tempLeaf.getLeft() != null) {</span>
-                
-<span class="fc bfc" id="L100" title="All 2 branches covered.">                for (int j = 0; j &lt; tempLeaf.getLeft().getSymbol().length(); j++) {</span>
-<span class="fc" id="L101">                    Character binaryKey = tempLeaf.getSymbol().charAt(j);</span>
-<span class="fc" id="L102">                    String binary = this.symbolsInBinary.get(binaryKey.toString());</span>
+<span class="fc" id="L159">        recurseTree(root, b1);</span>
 
-<span class="fc" id="L104">                    Character s = tempLeaf.getLeft().getSymbol().charAt(j);</span>
-<span class="fc" id="L105">                    this.symbolsInBinary.put(s.toString(), binary + &quot;1&quot;);</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        while (!tempHeap1.isEmpty()) {</span>
 
-                }
-            }
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">            if (tempLeaf.getRight() != null) {</span>
-                
-<span class="fc bfc" id="L111" title="All 2 branches covered.">                for (int j = 0; j &lt; tempLeaf.getRight().getSymbol().length(); j++) {</span>
-<span class="fc" id="L112">                    Character binaryKey = tempLeaf.getSymbol().charAt(j);</span>
-<span class="fc" id="L113">                    String binary = this.symbolsInBinary.get(binaryKey.toString());</span>
-
-<span class="fc" id="L115">                    Character s = tempLeaf.getRight().getSymbol().charAt(j);</span>
-<span class="fc" id="L116">                    this.symbolsInBinary.put(s.toString(), binary + &quot;0&quot;);</span>
-
-                }
-            }
+<span class="fc" id="L163">            tempLeaf = (Leaf) tempHeap1.poll();</span>
 
             //test print 
-<span class="fc" id="L122">            System.out.println(tempLeaf.toString()</span>
+<span class="fc" id="L166">            System.out.println(tempLeaf.toString()</span>
                     + &quot;. Lapset: vasen: &quot;
-<span class="fc" id="L124">                    + tempLeaf.getLeft()</span>
+<span class="fc" id="L168">                    + (char) tempLeaf.getLeft().getSymbol() + &quot;:&quot;</span>
+<span class="fc" id="L169">                    + tempLeaf.getLeft().getProbability()</span>
                     + &quot; , oikea: &quot;
-<span class="fc" id="L126">                    + tempLeaf.getRight());</span>
+<span class="fc" id="L171">                    + (char) tempLeaf.getRight().getSymbol() + &quot;:&quot;</span>
+<span class="fc" id="L172">                    + tempLeaf.getRight().getProbability());</span>
 
         }
 
         //print final Huffman binary for symbols
-<span class="fc bfc" id="L131" title="All 2 branches covered.">        for (String name : this.symbolsInBinary.keySet()) {</span>
-<span class="fc" id="L132">            String key = name.toString();</span>
-<span class="fc" id="L133">            String value = this.symbolsInBinary.get(name).toString();</span>
-<span class="fc bfc" id="L134" title="All 2 branches covered.">            if (key.length() &lt; 2) {</span>
-<span class="fc" id="L135">                System.out.println(key + &quot; :&quot; + value.substring(1));</span>
-            }
-<span class="fc" id="L137">        }</span>
+<span class="fc bfc" id="L177" title="All 2 branches covered.">        for (Byte name : this.symbolsInBinary.keySet()) {</span>
+<span class="fc" id="L178">            String key = name.toString();</span>
+<span class="fc" id="L179">            String value = this.symbolsInBinary.get(name).toString();</span>
 
-<span class="fc" id="L139">    }</span>
+<span class="fc" id="L181">            System.out.println(key + &quot; : &quot; + value);</span>
+
+<span class="fc" id="L183">        }</span>
+
+<span class="fc" id="L185">    }</span>
 
     /**
      * @param s3 the original input
-     * @param s4 the now compressed string in binary
+     * @param s4 compressed-input string in binary
      * @return returns the compressed string in binary
      */
     public String getCompString() throws Exception {
-<span class="fc" id="L147">        String s4 = &quot;&quot;;</span>
-<span class="fc" id="L148">        String s3 = this.input;</span>
-        Character c3;
-<span class="fc" id="L150">        StringBuilder sb = new StringBuilder();</span>
-<span class="fc bfc" id="L151" title="All 2 branches covered.">        for (int l = 0; l &lt; s3.length(); l++) {</span>
-<span class="fc" id="L152">            c3 = s3.charAt(l);</span>
-            
-           
-           
-
-<span class="fc" id="L157">            s4 = this.symbolsInBinary.get(c3.toString()).substring(1);</span>
-<span class="fc" id="L158">            sb.append(s4);</span>
+<span class="nc" id="L193">        String s4 = &quot;&quot;;</span>
+<span class="nc" id="L194">        byte[] s3 = this.input;</span>
+        Byte c3;
+<span class="nc" id="L196">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        for (int l = 0; l &lt; s3.length; l++) {</span>
+<span class="nc" id="L198">            c3 = s3[l];</span>
+<span class="nc" id="L199">            int i = (int) this.symbolsInBinary.get(c3);</span>
+<span class="nc" id="L200">            s4 = Integer.toBinaryString(i);</span>
+<span class="nc" id="L201">            sb.append(s4.substring(1));</span>
         }
-<span class="fc" id="L160">        s4 = sb.toString();</span>
-<span class="fc" id="L161">        return s4;</span>
+<span class="nc" id="L203">        s4 = sb.toString();</span>
+<span class="nc" id="L204">        return s4;</span>
     }
 
-    public String decodeTree() throws Exception {
+    public byte[] getByteArray() {
+<span class="fc" id="L208">        byte[] bytes = new byte[this.input.length];</span>
+        Byte c3;
+
+<span class="fc bfc" id="L211" title="All 2 branches covered.">        for (int l = 0; l &lt; this.input.length; l++) {</span>
+
+<span class="fc" id="L213">            bytes[l] = this.symbolsInBinary.get(this.input[l]);</span>
+
+        }
+
+<span class="fc" id="L217">        return bytes;</span>
+    }
+
+    /**
+     * This method decodes Huffman coded input-string
+     *
+     * @param s3 is read for the individual '0' and '1' which determine what to
+     * look for in the Huffman-tree
+     * @param s4 The decoded string.
+     * @param tempHeap2 A copy of the Huffman-tree that was built before using
+     * the original in the encoding.
+     * @param tempLeaf Temporary Leaf for handling the Huffman-tree
+     * @return
+     * @throws Exception
+     */
+    public byte[] decodeTree() throws Exception {
+
+<span class="fc" id="L234">        byte[] s3 = getByteArray();</span>
+<span class="fc" id="L235">        byte[] s4 = new byte[7];</span>
+
+<span class="fc" id="L237">        int i = 0;</span>
+<span class="fc" id="L238">        int j = 1;</span>
         
-<span class="fc" id="L166">        String s3 = getCompString();</span>
+<span class="fc" id="L240">        tempLeaf = (Leaf) tempHeap2.poll();</span>
+<span class="fc" id="L241">        root = tempLeaf;</span>
 
-<span class="fc" id="L168">        String s4 = &quot;&quot;;</span>
-<span class="fc" id="L169">        int i = 0;</span>
-<span class="fc" id="L170">        tempLeaf = (Leaf) tempHeap2.poll();</span>
-<span class="fc" id="L171">        root = tempLeaf;</span>
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">        while (i &lt; s3.length) {</span>
 
-<span class="fc bfc" id="L173" title="All 2 branches covered.">        while (s3.length() &gt; i) {</span>
+            
+<span class="pc bpc" id="L246" title="1 of 4 branches missed.">            if (tempLeaf.getLeft() == null &amp;&amp; tempLeaf.getRight() == null) {</span>
 
-<span class="fc bfc" id="L175" title="All 2 branches covered.">            if (s3.charAt(i) == '1') {</span>
-                
-<span class="fc" id="L177">                tempLeaf = tempLeaf.getLeft();</span>
-            } else {
-                
-<span class="fc" id="L180">                tempLeaf = tempLeaf.getRight();</span>
-            }
-<span class="fc" id="L182">            i++;</span>
-
-<span class="fc bfc" id="L184" title="All 2 branches covered.">            if (tempLeaf.getSymbol().length() == 1) {</span>
+<span class="fc" id="L248">                s4[i] = tempLeaf.getSymbol();</span>
+<span class="fc" id="L249">                System.out.println(&quot;taulukkoon lisättiin: &quot; + s4[i]);</span>
+<span class="fc" id="L250">                tempLeaf = root;</span>
+<span class="fc" id="L251">                i++;</span>
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">                if (i == s3.length) {</span>
+<span class="nc" id="L253">                    break;</span>
+                }
+<span class="fc" id="L255">                j = 1;</span>
                
-<span class="fc" id="L186">                s4 = s4 + tempLeaf.getSymbol();</span>
+            }
 
-<span class="fc" id="L188">                tempLeaf = root;</span>
-                
+<span class="fc bfc" id="L259" title="All 2 branches covered.">            if (((s3[i] &gt;&gt; j) &amp; 1) != 0) {</span>
+<span class="fc" id="L260">                System.out.println(s3[i]);</span>
+<span class="fc" id="L261">                System.out.println(&quot;Left turn&quot;);</span>
+<span class="fc" id="L262">                tempLeaf = tempLeaf.getLeft();</span>
+<span class="fc" id="L263">                j++;</span>
+            } else {
+<span class="fc" id="L265">                System.out.println(s3[i]);</span>
+<span class="fc" id="L266">                System.out.println(&quot;Right turn&quot;);</span>
+<span class="fc" id="L267">                tempLeaf = tempLeaf.getRight();</span>
+<span class="fc" id="L268">                j++;</span>
             }
 
         }
-<span class="fc" id="L193">        return s4;</span>
+<span class="nc" id="L272">        return s4;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
