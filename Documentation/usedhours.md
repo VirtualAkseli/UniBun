@@ -24,10 +24,19 @@ Date       | time | what-I-did |
 -----------|------|--------|
 20.05.2019 | 4h | Fixed the code so that Huffman-coding is done correctly |
 21.05.2019 | 5h | Looking up ways on how to read files into a suitable form of input for the program |
-22.05.2019 | 5h | Trying to solve the input as byte-array design, no success. |
+22.05.2019 | 5h | Trying to solve the input as byte-array design, no success |
 23.05.2019 | 2h | Tidying the code, writing tests |
-24.05.2019 | 1h | Enabled jacoco and ensured that the tests are reasonable. |
+24.05.2019 | 1h | Enabled jacoco and ensured that the tests are reasonable |
 
+
+## Week 4
+
+Date       | time | what-I-did |
+-----------|------|--------|
+28.05.2019 | 1h | Looked up some relevant info regarding bit-operations |
+29.05.2019 | 5h | Trying to get the Byte input working |
+30.05.2019 | 5h | Refactoring the program to transform input to Byte arrays |
+31.05.2019 | 6h | Writing the ArrayList as a placeholder, trying to solve the Byte-mess.   Started writing testing document and implementation document |
 
 
 
@@ -37,5 +46,6 @@ Date       | time | what-I-did |
 --------|----------|
  1      | 4,5      |
  2      | 22       |
- 3      | 17
- **Sum** | **43,5** |
+ 3      | 17       |
+ 4      | 17       |
+ **Sum** | **60,5** |
