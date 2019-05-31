@@ -3,12 +3,12 @@ Introducing UniBun, the Universal Bundler that packages one's files saving up to
 The program is written in Java.
 
 ## Documentation
-[Design document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/design_document.md "link to dd")
-[Implementation document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/implementation_document.md "link to id")
-[Testing document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/testing_document.md "link to td")
+[Design document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/design_document.md "link to dd")  
+[Implementation document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/implementation_document.md "link to id")  
+[Testing document](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/testing_document.md "link to td")  
 
 ## Testing
-`` mvn test jacoco:report `` will generate an index.html in /target/site/jacoco that'll show the depth of testing
+`` mvn test jacoco:report ``   will generate an index.html in /target/site/jacoco that'll show the depth of testing
 
 
 ## Weekly reports
