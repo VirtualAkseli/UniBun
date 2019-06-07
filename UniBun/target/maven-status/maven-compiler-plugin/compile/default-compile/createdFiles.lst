@@ -1,2 +1,11 @@
+aknu/unibun/domain/frequencyCalculator.class
+aknu/unibun/domain/HuffBin.class
 aknu/unibun/domain/Leaf.class
+aknu/unibun/io/UniBunInput.class
+aknu/unibun/io/UniBunOutput.class
+aknu/unibun/utils/HashMap.class
+aknu/unibun/ui/MainUI.class
+aknu/unibun/utils/ArrayList.class
+aknu/unibun/domain/LeafComparator.class
+aknu/unibun/domain/LeafComparatorMax.class
 aknu/unibun/domain/huffmanTree.class

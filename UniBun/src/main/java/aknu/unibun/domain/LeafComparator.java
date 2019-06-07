@@ -12,10 +12,10 @@ import java.util.Comparator;
  * Used in creating the min-heap for Huffman code
  * @author aknu
  */
-public class LeafComparator implements Comparator<Leaf> {
+public class LeafComparator implements Comparator<Node> {
 
     @Override
-    public int compare(Leaf x, Leaf y) {
+    public int compare(Node x, Node y) {
         
        
         

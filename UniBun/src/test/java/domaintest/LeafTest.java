@@ -5,7 +5,7 @@
  */
 package domaintest;
 
-import aknu.unibun.domain.Leaf;
+import aknu.unibun.domain.Node;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -15,15 +15,15 @@ import static org.junit.Assert.*;
  * @author aknu
  */
 public class LeafTest {
-    Leaf newLeaf; 
-    Leaf anotherLeaf; 
+    Node newLeaf; 
+    Node anotherLeaf; 
     public LeafTest() {
     }
     
     @Before
     public void setUp() {
-        newLeaf = new Leaf(new Byte("0"), 0.2);
-        anotherLeaf = new Leaf(new Byte("1"), 0.3);
+        newLeaf = new Node(new Byte("0"), 0.2);
+        anotherLeaf = new Node(new Byte("1"), 0.3);
     }
     
     @Test

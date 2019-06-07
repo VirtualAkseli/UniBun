@@ -5,7 +5,7 @@
  */
 package aknu.unibun.ui;
 
-import aknu.unibun.domain.Leaf;
+import aknu.unibun.domain.Node;
 import aknu.unibun.domain.LeafComparator;
 import aknu.unibun.domain.frequencyCalculator;
 import aknu.unibun.domain.huffmanTree;
@@ -37,7 +37,7 @@ public class MainUI {
         
         frequencyCalculator fq = new frequencyCalculator();
         huffmanTree ht = new huffmanTree();
-        Comparator<Leaf> comp = new LeafComparator();
+        Comparator<Node> comp = new LeafComparator();
         PriorityQueue freqHeap = new PriorityQueue(50, comp);
         freqHeap = fq.frequencyCalculator(newInput.getBytes());
         
@@ -62,15 +62,15 @@ public class MainUI {
       
         System.out.println("Merkkijonon pituus ennen kompressiota: " + fq.getInput().length*8);
         
-        System.out.println("\r Kompressoitu jono: " + compString);
+       // System.out.println("\r Kompressoitu jono: " + compString);
         System.out.println("Pituus kompression jälkeen: " + compString.length());
-         
+        
         UniBunOutput out = new UniBunOutput();
         out.UniBunOutput(bytes);
         String output = "";
         
         
-
+ 
         
 /*
         
@@ -84,8 +84,8 @@ public class MainUI {
 
         out.decodeFile(ht.decodeTree());
 
-        
-
+        System.out.print("77 on: ");
+        System.out.println((char)(77));
         
 
     }

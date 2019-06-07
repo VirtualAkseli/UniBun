@@ -5,7 +5,7 @@
  */
 package aknu.unibun.io;
 
-import aknu.unibun.domain.Leaf;
+import aknu.unibun.domain.Node;
 
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
@@ -25,19 +25,20 @@ import sun.misc.IOUtils;
 
 
 /**
- * This class is intended to manage Input and tranform any given 
+ * This class is intended to manage Input and transform any given 
  * file to a byte-array
  * @author aknu
  */
 public class UniBunInput {
 
-    PriorityQueue<Leaf> frequencyHeap;
+    PriorityQueue<Node> frequencyHeap;
     ArrayList<Character> seenChars;
     String input;
     String encodeString;
     byte[] bytes;
     File testImg = new File("hb.jpeg");
     File testText = new File("test.txt");
+    File testFile = new File("IMG_9684.CR2");
    Path path;
 Path path2;
     public byte[] GetUniBunInput() throws Exception {
@@ -86,7 +87,7 @@ Path path2;
         
         
         
-        String ts2 = "missisippi";
+        String ts2 = "Meskaliininmakuinen mansikkamojito meilahden monitoimitilassa";
        return ts2.getBytes();
        
     }

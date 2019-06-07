@@ -5,7 +5,7 @@
  */
 package domaintest;
 
-import aknu.unibun.domain.Leaf;
+import aknu.unibun.domain.Node;
 import aknu.unibun.domain.frequencyCalculator;
 import aknu.unibun.domain.huffmanTree;
 import org.junit.Before;

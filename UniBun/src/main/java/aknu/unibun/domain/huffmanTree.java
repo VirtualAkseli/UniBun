@@ -18,10 +18,10 @@ import java.util.PriorityQueue;
 public class huffmanTree {
 
     HashMap<Byte, Byte> symbolsInBinary = new HashMap();
-    Comparator<Leaf> leafComp = new LeafComparatorMax();
+    Comparator<Node> leafComp = new LeafComparatorMax();
     frequencyCalculator freq1;
-    Leaf tempLeaf;
-    Leaf root;
+    Node tempLeaf;
+    Node root;
     PriorityQueue tempHeap1;
     PriorityQueue tempHeap2;
     UniBunInput ubi;
@@ -29,6 +29,7 @@ public class huffmanTree {
     int recurseCount = 0;
     Byte b0 = new Byte("0");
     Byte b1 = new Byte("1");
+    int recurseHelper = 0;
 
     public huffmanTree() throws Exception {
         this.freq1 = new frequencyCalculator();
@@ -37,13 +38,13 @@ public class huffmanTree {
     }
 
     /**
-     * Given a heap of symbol-nodes (Leaf), this method sorts the nodes into a
-     * Huffman Tree, so that polling the heap returns the highest probability
-     * Leaf.
+     * Given a heap of symbol-nodes (Node), this method sorts the nodes into a
+ Huffman Tree, so that polling the heap returns the highest probability
+ Node.
      *
      * @param tempHeap heap for sorting the input heap's contents into a Huffman
      * Tree.
-     * @param tempLeaf temporary Leaf for handling the polled node.
+     * @param tempLeaf temporary Node for handling the polled node.
      * @param inputHeap
      */
     public void sortToMaxTree(PriorityQueue inputHeap, byte[] input) {
@@ -52,17 +53,18 @@ public class huffmanTree {
         tempHeap2 = new PriorityQueue(50, leafComp);
 
         while (inputHeap.size() > 1) {
+            
             Byte nb = new Byte("0");
-            Leaf combLeaf = new Leaf(new Byte(nb), 0);
+            Node combLeaf = new Node(new Byte(nb), 0);
 
-            tempLeaf = (Leaf) inputHeap.poll();
+            tempLeaf = (Node) inputHeap.poll();
 
             combLeaf.setLeft(tempLeaf);
             this.symbolsInBinary.put(tempLeaf.getSymbol(), b1);
 
             byte combSymb = tempLeaf.getSymbol();
             Double combProb = tempLeaf.getProbability();
-            tempLeaf = (Leaf) inputHeap.poll();
+            tempLeaf = (Node) inputHeap.poll();
 
             combLeaf.setRight(tempLeaf);
             this.symbolsInBinary.put(tempLeaf.getSymbol(), b0);
@@ -128,18 +130,35 @@ public class huffmanTree {
         return tempHeap1;
     }
 
-    public void recurseTree(Leaf root, Byte huffBin) {
-        if (root.getLeft() != null) {
+    public void recurseTree(Node root, Byte huffBin) {
+        /* if (recurseHelper == 0) {
+         if (root.getLeft() != null) {
             System.out.println("bin is 1");
+            recurseHelper++;
+            recurseTree(root.getLeft(), b1);
+        }
+         if (root.getRight() != null) {
+            System.out.println("bin is 0");
+            recurseHelper++;
+            recurseTree(root.getRight(), b0);
+        } else {
+            System.out.println("GOT HERE! " + " Symbol: " + (char) root.getSymbol() + " Binary: " + Integer.toBinaryString(Byte.toUnsignedInt(huffBin)));
+            this.symbolsInBinary.put(root.getSymbol(), huffBin);
+        }
+        } else { */
+        if (root.getLeft() != null) {
+            //System.out.println("bin is 1");
             recurseTree(root.getLeft(), combineFunkyBits(huffBin, b1));
         }
         if (root.getRight() != null) {
-            System.out.println("bin is 0");
+           // System.out.println("bin is 0");
             recurseTree(root.getRight(), combineFunkyBits(huffBin, b0));
         } else {
-            System.out.println("GOT HERE! " + " Symbol: " + (char) root.getSymbol() + " Binary: " + Integer.toBinaryString(Byte.toUnsignedInt(huffBin)).substring(1));
+            //System.out.println("GOT HERE! " + " Symbol: " + root.getSymbol() + " Binary: " + Integer.toBinaryString((int) huffBin));
             this.symbolsInBinary.put(root.getSymbol(), huffBin);
+            //System.out.println("");
         }
+
     }
 
     /**
@@ -154,33 +173,36 @@ public class huffmanTree {
      */
     public void encodeTree() {
 
-        Leaf root = (Leaf) tempHeap1.peek();
+        Node root = (Node) tempHeap1.peek();
 
         recurseTree(root, b1);
 
         while (!tempHeap1.isEmpty()) {
 
-            tempLeaf = (Leaf) tempHeap1.poll();
+            tempLeaf = (Node) tempHeap1.poll();
 
-            //test print 
+            /* test print 
             System.out.println(tempLeaf.toString()
                     + ". Lapset: vasen: "
-                    + (char) tempLeaf.getLeft().getSymbol() + ":"
+                    + tempLeaf.getLeft().getSymbol() + ":"
                     + tempLeaf.getLeft().getProbability()
                     + " , oikea: "
-                    + (char) tempLeaf.getRight().getSymbol() + ":"
+                    + tempLeaf.getRight().getSymbol() + ":"
                     + tempLeaf.getRight().getProbability());
-
+            */
         }
 
-        //print final Huffman binary for symbols
+        /* print final Huffman binary for symbols 
+        
         for (Byte name : this.symbolsInBinary.keySet()) {
             String key = name.toString();
-            String value = this.symbolsInBinary.get(name).toString();
+            int value = this.symbolsInBinary.get(name);
 
-            System.out.println(key + " : " + value);
+            System.out.println(key + " : " + Integer.toBinaryString(value));
 
         }
+        */
+        
 
     }
 
@@ -197,8 +219,9 @@ public class huffmanTree {
         for (int l = 0; l < s3.length; l++) {
             c3 = s3[l];
             int i = (int) this.symbolsInBinary.get(c3);
+            //System.out.println("Tämmönen tavu löyty tältä " + i + ". indeksiin: " + this.symbolsInBinary.get(c3));
             s4 = Integer.toBinaryString(i);
-            sb.append(s4.substring(1));
+            sb.append(s4);
         }
         s4 = sb.toString();
         return s4;
@@ -206,11 +229,11 @@ public class huffmanTree {
 
     public byte[] getByteArray() {
         byte[] bytes = new byte[this.input.length];
-        Byte c3;
+        Byte b;
 
-        for (int l = 0; l < this.input.length; l++) {
-
-            bytes[l] = this.symbolsInBinary.get(this.input[l]);
+        for (int l = 0; l < bytes.length; l++) {
+            b = this.input[l];
+            bytes[l] = this.symbolsInBinary.get(b);
 
         }
 
@@ -225,45 +248,60 @@ public class huffmanTree {
      * @param s4 The decoded string.
      * @param tempHeap2 A copy of the Huffman-tree that was built before using
      * the original in the encoding.
-     * @param tempLeaf Temporary Leaf for handling the Huffman-tree
+     * @param tempLeaf Temporary Node for handling the Huffman-tree
      * @return
      * @throws Exception
      */
     public byte[] decodeTree() throws Exception {
 
         byte[] s3 = getByteArray();
-        byte[] s4 = new byte[7];
 
+        byte[] s4 = new byte[this.input.length];
+        boolean zeroesHandled = false;
         int i = 0;
-        int j = 1;
-        
-        tempLeaf = (Leaf) tempHeap2.poll();
+        int j = 0;
+        boolean isFirst = true;
+        tempLeaf = (Node) tempHeap2.poll();
         root = tempLeaf;
-
+        System.out.println("");
         while (i < s3.length) {
-
+            
+            while ((((128 >> j) & s3[i]) == 0) && !zeroesHandled) {
+                //System.out.print("0");
+                j++;
+            }
+            //System.out.print("|");
+            zeroesHandled = true;
             
             if (tempLeaf.getLeft() == null && tempLeaf.getRight() == null) {
-
+               // System.out.println(" Binäärinä: " + Integer.toBinaryString((int) s3[i]));
                 s4[i] = tempLeaf.getSymbol();
-                System.out.println("taulukkoon lisättiin: " + s4[i]);
+
+                //System.out.println("taulukkoon lisättiin: " + s4[i]);
+                
                 tempLeaf = root;
                 i++;
+
                 if (i == s3.length) {
                     break;
                 }
-                j = 1;
-               
+                zeroesHandled = false;
+                isFirst = true;
+                j = 0;
+
             }
 
-            if (((s3[i] >> j) & 1) != 0) {
-                System.out.println(s3[i]);
-                System.out.println("Left turn");
+            else if (((128 >> j) & s3[i]) != 0) {
+                
+                if (!isFirst) {
+                //System.out.print("1");
                 tempLeaf = tempLeaf.getLeft();
+                }
+                isFirst = false;
                 j++;
             } else {
-                System.out.println(s3[i]);
-                System.out.println("Right turn");
+
+                //System.out.print("0");
                 tempLeaf = tempLeaf.getRight();
                 j++;
             }

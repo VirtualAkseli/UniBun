@@ -1,9 +1,0 @@
--------------------------------------------------------------------------------
-Test set: domaintest.HuffmanTreeTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.247 sec <<< FAILURE! - in domaintest.HuffmanTreeTest
-DecodingWorks(domaintest.HuffmanTreeTest)  Time elapsed: 0.247 sec  <<< ERROR!
-java.lang.ArrayIndexOutOfBoundsException: 7
-	at aknu.unibun.domain.huffmanTree.decodeTree(huffmanTree.java:248)
-	at domaintest.HuffmanTreeTest.DecodingWorks(HuffmanTreeTest.java:47)
-

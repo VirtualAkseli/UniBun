@@ -27,7 +27,27 @@ public class UniBunOutput {
 
         File output = new File("test22.bun");
         Path path = FileSystems.getDefault().getPath(".", "test22.bun");
-
+        int j = 0;
+        int ptr1;
+        
+        /* for (int i = 0; i < input.length; i++) {
+            
+            byte a = input[i];
+            a = (byte) ( a & 0xFF);
+            while ((a >> j) == 0) {
+                j++;
+            }
+            ptr1 = j;
+            
+            while (j < 8) {
+                if (((a >> j) && 1)) {
+                
+            
+            }
+            
+        } */
+        
+        
         Files.write(path, input);
 
     }
