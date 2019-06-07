@@ -38,6 +38,16 @@ Date       | time | what-I-did |
 30.05.2019 | 5h | Refactoring the program to transform input to Byte arrays |
 31.05.2019 | 6h | Writing the ArrayList as a placeholder, trying to solve the Byte-mess.   Started writing testing document and implementation document |
 
+## Week 5
+
+Date       | time | what-I-did |
+-----------|------|--------|
+3.06.2019 | 5h | Getting the program to write bytes correctly |
+5.06.2019 | 6h | Managed to get small input "compressed" and decompressed using only bytes |
+6.06.2019 | 5h | Trying to solve a bug which messes the symbols with a large input (Moby Dick) |
+7.06.2019 | 4h | Reading Cormen and learning the basics of PriorityQueue, also ArrayList |
+
+
 
 
 ## Total
@@ -48,4 +58,5 @@ Date       | time | what-I-did |
  2      | 22       |
  3      | 17       |
  4      | 17       |
- **Sum** | **60,5** |
+ 5      | 20       |
+ **Sum** | **80,5** |
