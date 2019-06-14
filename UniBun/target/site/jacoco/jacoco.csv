@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+UniBun,aknu.unibun.io,UniBunOutput,52,0,0,0,10,0,3,0,3,0
+UniBun,aknu.unibun.io,UniBunInput,3,55,0,0,1,11,1,2,1,2
+UniBun,aknu.unibun.utils,Tree,3,0,0,0,1,0,1,0,1,0
+UniBun,aknu.unibun.utils,HashMap,3,0,0,0,1,0,1,0,1,0
+UniBun,aknu.unibun.domain,huffmanTree,56,419,6,28,14,94,7,20,2,8
+UniBun,aknu.unibun.domain,frequencyCalculator,3,102,0,8,1,25,1,8,1,4
+UniBun,aknu.unibun.domain,HuffBin,74,0,10,0,14,0,8,0,3,0
+UniBun,aknu.unibun.domain,Node,38,55,0,0,10,21,6,9,6,9
+UniBun,aknu.unibun.domain,LeafComparatorMax,0,25,0,4,0,6,0,4,0,2
+UniBun,aknu.unibun.domain,LeafComparator,0,25,0,4,0,6,0,4,0,2

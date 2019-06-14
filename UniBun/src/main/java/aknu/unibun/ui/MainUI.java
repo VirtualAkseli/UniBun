@@ -28,65 +28,40 @@ public class MainUI {
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
     public static void main(String[] args) throws Exception {
-        
+
         byte[] bytes;
-        boolean print = false;
-        //bytes = ts1.getBytes();
-        
+        Comparator<Node> comp = new LeafComparator();
+
         UniBunInput newInput = new UniBunInput();
-        
+
         frequencyCalculator fq = new frequencyCalculator();
         huffmanTree ht = new huffmanTree();
-        Comparator<Node> comp = new LeafComparator();
+
         PriorityQueue freqHeap = new PriorityQueue(50, comp);
         freqHeap = fq.frequencyCalculator(newInput.getBytes());
-        
-       
 
         ht.sortToMaxTree(freqHeap, newInput.getBytes());
 
-        
-        
-        
-        
         String compString = ht.getCompString();
 
-       bytes = ht.getByteArray();
+        bytes = ht.getByteArray();
 
-        /* System.out.println("bytes= ");
-        for (int i = 0; i < bytes.length; i++) {
-            String s1 = String.format("%8s", Integer.toBinaryString(bytes[i] & 0xFF)).replace(' ', '0');
-            System.out.print(s1);
+        System.out.println("Tiedoston pituus ennen kompressiota: " + fq.getInput().length);
 
-        } */
-      
-        System.out.println("Merkkijonon pituus ennen kompressiota: " + fq.getInput().length*8);
-        
-       // System.out.println("\r Kompressoitu jono: " + compString);
-        System.out.println("Pituus kompression jälkeen: " + compString.length());
-        
+        System.out.println("Pituus kompression jälkeen: " + compString.length() / 8);
+
         UniBunOutput out = new UniBunOutput();
         out.UniBunOutput(bytes);
         String output = "";
+
         
-        
- 
-        
-/*
-        
-        */
-        
-        Double d1 = compString.length() / 1.0;
-        d1 = d1 / (fq.getInput().length * 8);
+        Double d1 = compString.length() / 8.0;
+        d1 = d1 / (fq.getInput().length);
         d1 = 1 - d1;
 
         System.out.println("\b Kompressioaste: " + (d1) * 100 + "%");
 
         out.decodeFile(ht.decodeTree());
-
-        System.out.print("77 on: ");
-        System.out.println((char)(77));
-        
 
     }
 

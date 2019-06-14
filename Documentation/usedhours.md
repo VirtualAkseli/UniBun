@@ -47,6 +47,13 @@ Date       | time | what-I-did |
 6.06.2019 | 5h | Trying to solve a bug which messes the symbols with a large input (Moby Dick) |
 7.06.2019 | 4h | Reading Cormen and learning the basics of PriorityQueue, also ArrayList |
 
+## Week 6
+
+Date       | time | what-I-did |
+-----------|------|--------|
+14.06.2019 | 1h | Tidying the code and removing unused partions of the code. Set some tests to show that parts of the code are functional |
+
+
 
 
 
@@ -59,4 +66,5 @@ Date       | time | what-I-did |
  3      | 17       |
  4      | 17       |
  5      | 20       |
- **Sum** | **80,5** |
+ 6      | 1       |
+ **Sum** | **81,5** |

@@ -8,6 +8,7 @@ package aknu.unibun.domain;
 import aknu.unibun.io.UniBunInput;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 /**
@@ -39,8 +40,8 @@ public class huffmanTree {
 
     /**
      * Given a heap of symbol-nodes (Node), this method sorts the nodes into a
- Huffman Tree, so that polling the heap returns the highest probability
- Node.
+     * Huffman Tree, so that polling the heap returns the highest probability
+     * Node.
      *
      * @param tempHeap heap for sorting the input heap's contents into a Huffman
      * Tree.
@@ -53,9 +54,9 @@ public class huffmanTree {
         tempHeap2 = new PriorityQueue(50, leafComp);
 
         while (inputHeap.size() > 1) {
-            
+
             Byte nb = new Byte("0");
-            Node combLeaf = new Node(new Byte(nb), 0);
+            Node combLeaf = new Node(nb, 0);
 
             tempLeaf = (Node) inputHeap.poll();
 
@@ -73,7 +74,6 @@ public class huffmanTree {
             combLeaf.setProbability(combProb);
 
             Byte combByte = combineBits(tempLeaf.getSymbol(), combSymb);
-            //System.out.println("combByte is: " + Integer.toBinaryString(Byte.toUnsignedInt(combSymb)));
             combLeaf.setSymbol(combByte);
 
             if (!tempHeap1.contains(combLeaf)) {
@@ -88,10 +88,17 @@ public class huffmanTree {
 
     }
 
+    /**
+     * Given bytes no1 and no2, the method makes a combined byte for the tree.
+     *
+     * @param no1
+     * @param no2
+     * @return
+     */
     public Byte combineBits(Byte no1, Byte no2) {
         Byte rb;
 
-        if (no2 == b0) {
+        if (Objects.equals(no2, b0)) {
             int i = (no1 << b1);
 
             rb = (byte) i;
@@ -107,7 +114,7 @@ public class huffmanTree {
     public Byte combineFunkyBits(Byte no1, Byte no2) {
         Byte rb;
 
-        if (no2 == b0) {
+        if (Objects.equals(no2, b0)) {
             int i = (no1 << b1);
 
             rb = (byte) i;
@@ -121,55 +128,32 @@ public class huffmanTree {
         return rb;
     }
 
-    /**
-     * This method gathers the Huffman coded binary strings for every symbol of
-     * the tree's nodes.
-     *
-     */
     public PriorityQueue getMaxTree() {
         return tempHeap1;
     }
 
+    /**
+     * The method traverses the Huffman tree and forms the Huffman coded
+     * bit-sequences of varied length
+     *
+     * @param root
+     * @param huffBin
+     */
     public void recurseTree(Node root, Byte huffBin) {
-        /* if (recurseHelper == 0) {
-         if (root.getLeft() != null) {
-            System.out.println("bin is 1");
-            recurseHelper++;
-            recurseTree(root.getLeft(), b1);
-        }
-         if (root.getRight() != null) {
-            System.out.println("bin is 0");
-            recurseHelper++;
-            recurseTree(root.getRight(), b0);
-        } else {
-            System.out.println("GOT HERE! " + " Symbol: " + (char) root.getSymbol() + " Binary: " + Integer.toBinaryString(Byte.toUnsignedInt(huffBin)));
-            this.symbolsInBinary.put(root.getSymbol(), huffBin);
-        }
-        } else { */
+
         if (root.getLeft() != null) {
-            //System.out.println("bin is 1");
             recurseTree(root.getLeft(), combineFunkyBits(huffBin, b1));
         }
         if (root.getRight() != null) {
-           // System.out.println("bin is 0");
             recurseTree(root.getRight(), combineFunkyBits(huffBin, b0));
         } else {
-            //System.out.println("GOT HERE! " + " Symbol: " + root.getSymbol() + " Binary: " + Integer.toBinaryString((int) huffBin));
             this.symbolsInBinary.put(root.getSymbol(), huffBin);
-            //System.out.println("");
         }
 
     }
 
     /**
-     * Gathers an HashMap of the newly Huffmanised symbols
-     *
-     * @param symbolsInBinary. HashMap containing a symbol as the key and the
-     * newly set binary representation as its value
-     * @param binary the Huffman-binary that is set as a symbols value in the
-     * HashMap
-     *
-     *
+     * With recursion, encodes the tree
      */
     public void encodeTree() {
 
@@ -177,36 +161,12 @@ public class huffmanTree {
 
         recurseTree(root, b1);
 
-        while (!tempHeap1.isEmpty()) {
-
-            tempLeaf = (Node) tempHeap1.poll();
-
-            /* test print 
-            System.out.println(tempLeaf.toString()
-                    + ". Lapset: vasen: "
-                    + tempLeaf.getLeft().getSymbol() + ":"
-                    + tempLeaf.getLeft().getProbability()
-                    + " , oikea: "
-                    + tempLeaf.getRight().getSymbol() + ":"
-                    + tempLeaf.getRight().getProbability());
-            */
-        }
-
-        /* print final Huffman binary for symbols 
-        
-        for (Byte name : this.symbolsInBinary.keySet()) {
-            String key = name.toString();
-            int value = this.symbolsInBinary.get(name);
-
-            System.out.println(key + " : " + Integer.toBinaryString(value));
-
-        }
-        */
-        
-
     }
 
     /**
+     * Returns the original input in a Huffman-coded form for compression rate
+     * calculations
+     *
      * @param s3 the original input
      * @param s4 compressed-input string in binary
      * @return returns the compressed string in binary
@@ -241,14 +201,16 @@ public class huffmanTree {
     }
 
     /**
-     * This method decodes Huffman coded input-string
+     * The method decodes Huffman compressed byte arrays
      *
      * @param s3 is read for the individual '0' and '1' which determine what to
      * look for in the Huffman-tree
-     * @param s4 The decoded string.
+     * @param s4 The decoded byte array.
      * @param tempHeap2 A copy of the Huffman-tree that was built before using
      * the original in the encoding.
      * @param tempLeaf Temporary Node for handling the Huffman-tree
+     * @param zeroesHandled A boolean for determining whether the long sequence
+     * of zeroes has been handled.
      * @return
      * @throws Exception
      */
@@ -265,20 +227,17 @@ public class huffmanTree {
         root = tempLeaf;
         System.out.println("");
         while (i < s3.length) {
-            
+
             while ((((128 >> j) & s3[i]) == 0) && !zeroesHandled) {
-                //System.out.print("0");
+
                 j++;
             }
-            //System.out.print("|");
+
             zeroesHandled = true;
-            
+
             if (tempLeaf.getLeft() == null && tempLeaf.getRight() == null) {
-               // System.out.println(" Binäärinä: " + Integer.toBinaryString((int) s3[i]));
                 s4[i] = tempLeaf.getSymbol();
 
-                //System.out.println("taulukkoon lisättiin: " + s4[i]);
-                
                 tempLeaf = root;
                 i++;
 
@@ -289,19 +248,16 @@ public class huffmanTree {
                 isFirst = true;
                 j = 0;
 
-            }
+            } else if (((128 >> j) & s3[i]) != 0) {
 
-            else if (((128 >> j) & s3[i]) != 0) {
-                
                 if (!isFirst) {
-                //System.out.print("1");
-                tempLeaf = tempLeaf.getLeft();
+
+                    tempLeaf = tempLeaf.getLeft();
                 }
                 isFirst = false;
                 j++;
             } else {
 
-                //System.out.print("0");
                 tempLeaf = tempLeaf.getRight();
                 j++;
             }

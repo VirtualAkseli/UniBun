@@ -5,9 +5,14 @@
  */
 package domaintest;
 
+import aknu.unibun.domain.LeafComparator;
 import aknu.unibun.domain.Node;
 import aknu.unibun.domain.frequencyCalculator;
 import aknu.unibun.domain.huffmanTree;
+import aknu.unibun.io.UniBunInput;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,30 +26,41 @@ public class HuffmanTreeTest {
     byte[] testInput;
     huffmanTree ht;
     frequencyCalculator freq;
+    UniBunInput newInput;
 
-    public HuffmanTreeTest() {
+    public HuffmanTreeTest() throws IOException {
 
-        String test = "Osterit (Ostreidae) on meressä elävä simpukkaheimo, "
-                + "johon kuuluu toistakymmentä sukua. "
-                + "Joitakin osterilajeja viljellään ja kerätään "
-                + "luonnosta ihmisravinnoksi, ja ne ovat "
-                + "kulinaarisesti arvostettuja. Syötävien osterien "
-                + "levinneisyysalueet ovat istutusten myötä "
-                + "laajentuneet suuresti alkuperäisestä. ";
-        testInput = test.getBytes();
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        ht = new huffmanTree();
-        freq = new frequencyCalculator();
-        ht.sortToMaxTree(freq.frequencyCalculator(testInput), testInput);
     }
 
     
-    public void DecodingWorks() throws Exception {
 
-        assertEquals(testInput, ht.decodeTree());
+    @Test
+    public void DecodedFilesizeIsEqualToNormal() throws Exception {
+        this.newInput = new UniBunInput();
+
+        frequencyCalculator fq = new frequencyCalculator();
+        huffmanTree ht = new huffmanTree();
+        Comparator<Node> comp = new LeafComparator();
+        PriorityQueue freqHeap = new PriorityQueue(50, comp);
+        freqHeap = fq.frequencyCalculator(newInput.getBytes());
+        
+        ht.sortToMaxTree(freqHeap, newInput.getBytes());
+        assertEquals(this.newInput.getBytes().length, ht.decodeTree().length);
+
+    }
+    
+    @Test
+    public void DecodedFileIsSameAsOriginal() throws Exception {
+        this.newInput = new UniBunInput();
+
+        frequencyCalculator fq = new frequencyCalculator();
+        huffmanTree ht = new huffmanTree();
+        Comparator<Node> comp = new LeafComparator();
+        PriorityQueue freqHeap = new PriorityQueue(50, comp);
+        freqHeap = fq.frequencyCalculator(newInput.getBytes());
+        
+        ht.sortToMaxTree(freqHeap, newInput.getBytes());
+        assertEquals(this.newInput.getBytes(), ht.decodeTree());
 
     }
 

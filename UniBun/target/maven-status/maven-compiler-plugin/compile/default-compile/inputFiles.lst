@@ -1,4 +1,5 @@
 /home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/io/UniBunOutput.java
+/home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/utils/Tree.java
 /home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/domain/LeafComparatorMax.java
 /home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/ui/MainUI.java
 /home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/domain/LeafComparator.java
@@ -7,5 +8,4 @@
 /home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/domain/frequencyCalculator.java
 /home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/domain/huffmanTree.java
 /home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/domain/HuffBin.java
-/home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/domain/Leaf.java
-/home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/utils/ArrayList.java
+/home/local/aknu/TiraLabra/UniBun/UniBun/src/main/java/aknu/unibun/domain/Node.java

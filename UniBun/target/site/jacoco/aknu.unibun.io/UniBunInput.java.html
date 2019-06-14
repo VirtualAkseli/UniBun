@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UniBunInput.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UniBun</a> &gt; <a href="index.source.html" class="el_package">aknu.unibun.io</a> &gt; <span class="el_source">UniBunInput.java</span></div><h1>UniBunInput.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package aknu.unibun.io;
+
+import aknu.unibun.domain.Node;
+
+import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+import sun.misc.IOUtils;
+
+
+
+/**
+ * This class is intended to manage Input and transform any given 
+ * file to a byte-array
+ * @author aknu
+ */
+<span class="fc" id="L32">public class UniBunInput {</span>
+
+    PriorityQueue&lt;Node&gt; frequencyHeap;
+    ArrayList&lt;Character&gt; seenChars;
+    String input;
+    String encodeString;
+    byte[] bytes;
+<span class="fc" id="L39">    File testImg = new File(&quot;hb.jpeg&quot;);</span>
+<span class="fc" id="L40">    File testWav = new File(&quot;musa.wav&quot;);</span>
+<span class="fc" id="L41">    File testText1 = new File(&quot;kalevala.txt&quot;);</span>
+   
+<span class="fc" id="L43">    File testText = new File(&quot;test.txt&quot;);</span>
+<span class="fc" id="L44">    File testFile = new File(&quot;IMG_9684.CR2&quot;);</span>
+   Path path;
+Path path2;
+    public byte[] GetUniBunInput() throws Exception {
+        
+            
+        
+        
+<span class="nc" id="L52">      return getBytes();</span>
+       
+    }
+    
+   public byte[] getBytes() throws FileNotFoundException, IOException {
+        
+        
+<span class="fc" id="L59">         int length = (int) testText.length();</span>
+<span class="fc" id="L60">       FileInputStream fis = new FileInputStream(testText);</span>
+<span class="fc" id="L61">       BufferedInputStream bis = new BufferedInputStream(fis);</span>
+       
+<span class="fc" id="L63">       byte[] input = IOUtils.readNBytes(bis, length);</span>
+       
+<span class="fc" id="L65">       return input;</span>
+    }
+    
+   
+    
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
