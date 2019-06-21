@@ -9,6 +9,10 @@ The program is written in Java.
 
 ## Testing
 `` mvn test jacoco:report ``   will generate an index.html in /target/site/jacoco that'll show the depth of testing
+## Instructions for use
+`` mvn compile exec:java -Dexec.mainClass=aknu.unibun.ui.MainUI `` runs the program.
+The programs asks for an input file-name that must be found in the Unibun/Unibun/ folder
+
 
 
 ## Weekly reports
