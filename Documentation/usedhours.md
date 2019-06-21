@@ -53,7 +53,15 @@ Date       | time | what-I-did |
 -----------|------|--------|
 14.06.2019 | 1h | Tidying the code and removing unused partions of the code. Set some tests to show that parts of the code are functional |
 
+## Week 7
 
+Date       | time | what-I-did |
+-----------|------|--------|
+17.06.2019 | 5h | Debugging the compression-output |
+18.06.2019 | 6h | Changing the huffman-codebits from byte to string for easier management |
+19.06.2019 | 6h | Trying to get decoding work with the compressed file |
+20.06.2019 | 6h | Final shot at trying to get the actual commpression to work, no success |
+21.06.20019| 8h | Tried very hard to implement Min-Heap, got thrown against the wall by it. |
 
 
 
@@ -67,4 +75,5 @@ Date       | time | what-I-did |
  4      | 17       |
  5      | 20       |
  6      | 1       |
- **Sum** | **81,5** |
+ 7      | 31       |
+ **Sum** | **112,5** |
