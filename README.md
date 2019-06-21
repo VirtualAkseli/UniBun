@@ -16,3 +16,5 @@ The program is written in Java.
 - [Week report #2](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/weekly_report_2.md "link to wk2")
 - [Week report #3](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/weekly_report_3.md "link to wk3")
 - [Week report #4](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/weekly_report_4.md "link to wk4")
+- [Week report #5](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/viikkoraportti_5.md "link to wk5")
+- [Week report #6](https://github.com/VirtualAkseli/UniBun/blob/master/Documentation/viikkoraportti_6.md "link to wk6")
