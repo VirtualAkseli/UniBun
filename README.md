@@ -1,5 +1,5 @@
 # UniBun
-Introducing UniBun, the Universal Bundler that packages one's files saving up to 70% in file size.
+This is a non-finished Data-structures and algorithms project.
 The program is written in Java.
 
 ## Documentation
@@ -10,8 +10,10 @@ The program is written in Java.
 ## Testing
 `` mvn test jacoco:report ``   will generate an index.html in /target/site/jacoco that'll show the depth of testing
 ## Instructions for use
-`` mvn compile exec:java -Dexec.mainClass=aknu.unibun.ui.MainUI `` runs the program.
-The programs asks for an input file-name that must be found in the Unibun/Unibun/ folder
+The UniBun-1.0-SNAPSHOT.jar can be ran from the command line with `` java -jar UniBun-1.0-SNAPSHOT.jar `` Keep in mind, that you need to have the file that you input in the same folder as the .jar.
+
+`` mvn compile exec:java -Dexec.mainClass=aknu.unibun.ui.MainUI `` also runs the program.
+The program asks for an input file-name that must be found in the Unibun/Unibun/ folder
 
 
 
