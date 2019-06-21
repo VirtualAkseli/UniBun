@@ -22,8 +22,8 @@ public class LeafTest {
     
     @Before
     public void setUp() {
-        newLeaf = new Node(new Byte("0"), 0.2);
-        anotherLeaf = new Node(new Byte("1"), 0.3);
+        newLeaf = new Node(new Byte("0"), 2);
+        anotherLeaf = new Node(new Byte("1"), 3);
     }
     
     @Test
@@ -50,13 +50,13 @@ public class LeafTest {
     
     @Test
     public void GetAndSetWorks() {
-        double td = 0.9;
+        int td = 2;
         newLeaf.setProbability(td);
         newLeaf.setSymbol(new Byte("1"));
         
         Byte b1 = new Byte("1");
         byte b0 = 0b1;
-        assertEquals(td, newLeaf.getProbability().doubleValue(), td);
+        assertEquals(td, newLeaf.getProbability(), td);
         assertEquals(b0, newLeaf.getSymbol());
     }
     

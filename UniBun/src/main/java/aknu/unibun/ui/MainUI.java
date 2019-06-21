@@ -7,7 +7,7 @@ package aknu.unibun.ui;
 
 import aknu.unibun.domain.Node;
 import aknu.unibun.domain.LeafComparator;
-import aknu.unibun.domain.frequencyCalculator;
+import aknu.unibun.domain.FrequencyCalculator;
 import aknu.unibun.domain.huffmanTree;
 import aknu.unibun.io.UniBunInput;
 import aknu.unibun.io.UniBunOutput;
@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 /**
  *
@@ -25,44 +26,47 @@ import java.util.PriorityQueue;
  */
 public class MainUI {
 
-    private static final Charset UTF_8 = Charset.forName("UTF-8");
-
+    
     public static void main(String[] args) throws Exception {
-
-        byte[] bytes;
-        Comparator<Node> comp = new LeafComparator();
-
+        
+        Scanner in = new Scanner(System.in);
+        
+        String[] huffBytes;
+        
+        System.out.println("Please type the name of the file that you wish to compress.");
+        String args1 = in.nextLine();
+        long fire = System.nanoTime();
         UniBunInput newInput = new UniBunInput();
-
-        frequencyCalculator fq = new frequencyCalculator();
-        huffmanTree ht = new huffmanTree();
-
-        PriorityQueue freqHeap = new PriorityQueue(50, comp);
-        freqHeap = fq.frequencyCalculator(newInput.getBytes());
-
-        ht.sortToMaxTree(freqHeap, newInput.getBytes());
-
+        byte[] array1 = newInput.getBytes(args1);
+        
+        huffmanTree ht = new huffmanTree(array1);
+        
+        
         String compString = ht.getCompString();
 
-        bytes = ht.getByteArray();
+        huffBytes = ht.getHuffmanStringArray();
 
-        System.out.println("Tiedoston pituus ennen kompressiota: " + fq.getInput().length);
+        System.out.println("Tiedoston pituus ennen kompressiota: " + array1.length);
 
         System.out.println("Pituus kompression jälkeen: " + compString.length() / 8);
 
         UniBunOutput out = new UniBunOutput();
-        out.UniBunOutput(bytes);
+        //out.CompressToFile(huffBytes, compString.length()/8);
         String output = "";
 
         
         Double d1 = compString.length() / 8.0;
-        d1 = d1 / (fq.getInput().length);
+        d1 = d1 / (array1.length);
         d1 = 1 - d1;
 
         System.out.println("\b Kompressioaste: " + (d1) * 100 + "%");
 
         out.decodeFile(ht.decodeTree());
-
+        long end   = System.nanoTime();
+        long totalTime = end - fire;
+        double dividend = 1000000;
+        double millis = (totalTime/dividend);
+        System.out.println("Running time: "+ millis + " ms.");
     }
 
 }

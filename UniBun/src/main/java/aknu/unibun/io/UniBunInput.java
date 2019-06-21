@@ -37,33 +37,40 @@ public class UniBunInput {
     String encodeString;
     byte[] bytes;
     File testImg = new File("hb.jpeg");
-    File testWav = new File("musa.wav");
+    File shortxt = new File("short.txt");
     File testText1 = new File("kalevala.txt");
-   
+   File newFile;
     File testText = new File("test.txt");
     File testFile = new File("IMG_9684.CR2");
    Path path;
 Path path2;
-    public byte[] GetUniBunInput() throws Exception {
-        
-            
-        
-        
-      return getBytes();
-       
-    }
+
+public UniBunInput() {
     
-   public byte[] getBytes() throws FileNotFoundException, IOException {
+   
+}
+   
+    
+   public byte[] getBytes(String filename) throws FileNotFoundException, IOException {
+        
+        File newFile = new File(filename);
         
         
-         int length = (int) testText.length();
-       FileInputStream fis = new FileInputStream(testText);
+       byte[] input = Files.readAllBytes(newFile.toPath());
+       
+       return input;
+    }
+   
+   public byte[] testInputShort() throws FileNotFoundException, IOException {
+       File shortText = new File("short.txt");
+        int length = (int) shortText.length();
+       FileInputStream fis = new FileInputStream(shortText);
        BufferedInputStream bis = new BufferedInputStream(fis);
        
        byte[] input = IOUtils.readNBytes(bis, length);
        
        return input;
-    }
+   }
     
    
     

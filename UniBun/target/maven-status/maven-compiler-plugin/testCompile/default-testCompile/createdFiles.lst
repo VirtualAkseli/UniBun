@@ -1,2 +1,4 @@
-domaintest/LeafTest.class
+iotest/ShortInputTest.class
 domaintest/HuffmanTreeTest.class
+utilstest/TreeTest.class
+domaintest/LeafTest.class

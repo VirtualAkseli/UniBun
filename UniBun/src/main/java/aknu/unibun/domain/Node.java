@@ -16,14 +16,16 @@ package aknu.unibun.domain;
 public class Node {
 
     byte symbol;
-    double probability;
-    double combinedProb;
+    int probability;
+    int combinedProb;
     Node parent;
     Node leafLeft;
     Node leafRight;
     Boolean ready;
+    private boolean isLeaf;
+    private int index;
     
-    public Node(byte c, double d) {
+    public Node(byte c, int d) {
         this.symbol = c;
         this.probability = d;
         this.combinedProb = 0;
@@ -31,9 +33,16 @@ public class Node {
         this.leafRight = null;
         this.parent = null;
         this.ready = false;
+        this.isLeaf = false;
         
     }
+    public void setIndex(int index) {
+        this.index = index;
+    }
     
+    public int getIndex() {
+        return this.index;
+    }
     public void setSymbol(byte input) {
         this.symbol = input;
     }
@@ -42,11 +51,11 @@ public class Node {
         return this.symbol;
     }
 
-    public void setProbability(Double prob) {
+    public void setProbability(int prob) {
         this.probability = prob;
     }
     
-    public Double getProbability() {
+    public int getProbability() {
         return this.probability;
     }
     
@@ -64,6 +73,15 @@ public class Node {
     
     public boolean getReady() {
         return this.ready;
+    }
+    
+    public void setLeaf() {
+        this.isLeaf = true;
+    }
+    
+    public boolean IsLeaf(){
+        return this.isLeaf;
+    
     }
 
     @Override
